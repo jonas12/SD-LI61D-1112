@@ -1,0 +1,25 @@
+Adaptar os passos abaixo indicados para os pathnames correspondentes em cada computador
+
+Abrir Command Prompt na directoria: ExemploRMI
+Colocar o path para compilar e executar Java:
+ set Path="c:\Program Files\Java\jdk1.5.0_16\bin";%Path%
+Lançar o RMI registry: start rmiregistry
+
+SERVIDOR:
+   Abrir Command Prompt na directoria: ExemploRMI\RMIServer
+   Colocar o path para compilar e executar Java: 
+   set Path="c:\Program Files\Java\jdk1.5.0_16\bin";%Path%
+   Para ter acesso à classe com interface RMIInterface:
+   set CLASSPATH=D:\Disciplinas\SD\LEIC-SD-Ver1112\ExemploRMI
+   javac RMIServer.java
+   java rmiserver.RMIServer
+   
+CLIENTE:
+   Abrir Command Prompt na directoria: ExemploRMI\RMIClient
+   Colocar o path para compilar e executar Java:
+   set Path="c:\Program Files\Java\jdk1.5.0_16\bin";%Path%
+   Para ter acesso à classe com interface RMIInterface:
+   set CLASSPATH=D:\Disciplinas\SD\LEIC-SD-Ver1112\ExemploRMI
+   javac Main.java
+   java rmiclient.Main
+   

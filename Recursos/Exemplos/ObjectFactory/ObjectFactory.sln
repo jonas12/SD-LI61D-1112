@@ -1,0 +1,31 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceFactory", "InterfaceFactory\InterfaceFactory.csproj", "{8302DE41-E042-4E51-9AFD-B227EEB3ED13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerFactory", "ServerFactory\ServerFactory.csproj", "{754E7053-AF41-4FE3-8F2D-AC0BDD856861}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteFactory", "ClienteFactory\ClienteFactory.csproj", "{65D1892B-9C61-4FE7-8B7C-8CB5304506B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8302DE41-E042-4E51-9AFD-B227EEB3ED13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8302DE41-E042-4E51-9AFD-B227EEB3ED13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8302DE41-E042-4E51-9AFD-B227EEB3ED13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8302DE41-E042-4E51-9AFD-B227EEB3ED13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{754E7053-AF41-4FE3-8F2D-AC0BDD856861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{754E7053-AF41-4FE3-8F2D-AC0BDD856861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{754E7053-AF41-4FE3-8F2D-AC0BDD856861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{754E7053-AF41-4FE3-8F2D-AC0BDD856861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D1892B-9C61-4FE7-8B7C-8CB5304506B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D1892B-9C61-4FE7-8B7C-8CB5304506B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D1892B-9C61-4FE7-8B7C-8CB5304506B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D1892B-9C61-4FE7-8B7C-8CB5304506B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

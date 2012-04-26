@@ -1,0 +1,31 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceFactoryLifetime", "InterfaceFactoryLifetime\InterfaceFactoryLifetime.csproj", "{51127A78-8575-44C7-9215-AEE6435A4AF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerFactoryLifetime", "ServerFactoryLifetime\ServerFactoryLifetime.csproj", "{C91BF8D0-3034-4C57-A2FF-BE187928AE5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientFactoryLifetime", "ClientFactoryLifetime\ClientFactoryLifetime.csproj", "{9D6ABAFE-A33D-4136-BD8E-01792E527112}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{51127A78-8575-44C7-9215-AEE6435A4AF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51127A78-8575-44C7-9215-AEE6435A4AF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51127A78-8575-44C7-9215-AEE6435A4AF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51127A78-8575-44C7-9215-AEE6435A4AF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C91BF8D0-3034-4C57-A2FF-BE187928AE5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C91BF8D0-3034-4C57-A2FF-BE187928AE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C91BF8D0-3034-4C57-A2FF-BE187928AE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C91BF8D0-3034-4C57-A2FF-BE187928AE5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D6ABAFE-A33D-4136-BD8E-01792E527112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D6ABAFE-A33D-4136-BD8E-01792E527112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D6ABAFE-A33D-4136-BD8E-01792E527112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D6ABAFE-A33D-4136-BD8E-01792E527112}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
