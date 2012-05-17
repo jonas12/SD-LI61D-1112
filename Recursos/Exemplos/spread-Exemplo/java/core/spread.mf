@@ -1,0 +1,37 @@
+Manifest-Version: 1.0
+
+Name: spread\AdvancedMessageListener.java
+class-Bean: False
+
+Name: spread\BasicMessageListener.java
+class-Bean: False
+
+Name: spread\GroupID.java
+class-Bean: False
+
+Name: spread\MembershipInfo.java
+class-Bean: False
+
+Name: spread\MessageFactory.java
+class-Bean: False
+
+Name: spread\NULLAuth.java
+class-Bean: False
+
+Name: spread\SpreadAuthInterface.java
+class-Bean: False
+
+Name: spread\SpreadConnection.java
+class-Bean: False
+
+Name: spread\SpreadException.java
+class-Bean: False
+
+Name: spread\SpreadGroup.java
+class-Bean: False
+
+Name: spread\SpreadMessage.java
+class-Bean: False
+
+Name: spread\SpreadVersion.java
+class-Bean: False
