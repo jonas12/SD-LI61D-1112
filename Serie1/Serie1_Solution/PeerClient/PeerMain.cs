@@ -10,14 +10,19 @@ namespace PeerClient
 
         public static void Main(string[] args)
         {
+            Console.ReadLine();
             RemotingConfiguration.Configure(CONFIG_FILE_NAME, false);
-            WellKnownClientTypeEntry[] entries = RemotingConfiguration.GetRegisteredWellKnownClientTypes();
+            WellKnownClientTypeEntry[] clients = RemotingConfiguration.GetRegisteredWellKnownClientTypes();
             
-            ISuperPeer p = (ISuperPeer) Activator.GetObject(typeof(ISuperPeer), entries[0].ObjectUrl);
+            ISuperPeer sp = (ISuperPeer) Activator.GetObject(typeof(ISuperPeer), clients[0].ObjectUrl);
+
+            Peer p = new Peer();
             
             Console.WriteLine("Registering in peer");
+            
+            sp.RegisterPeer(p);
 
-            p.RegisterPeer(null);
+            Console.WriteLine("p.Ping() -> " + p.Ping());
 
             Console.ReadLine();
         }

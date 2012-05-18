@@ -4,10 +4,10 @@ namespace CommonInterface
 {
     public interface ISuperPeer : IPeer
     {
-        IEnumerable<IPeer> Peers { get; set; }
-        IEnumerable<ISuperPeer> SuperPeers { get; set; }
+        List<IPeer> OnlinePeers { get; set; }
+        List<ISuperPeer> SuperPeers { get; set; }
         void RegisterPeer(IPeer p);
         void UnRegisterPeer(IPeer p);
-        IEnumerable<IPeer> GetPeers();
+        List<IPeer> GetPeers();
     }
 }

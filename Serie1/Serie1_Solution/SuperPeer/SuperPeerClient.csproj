@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PeerNotFoundException.cs" />
+    <Compile Include="SuperPeer.cs" />
     <Compile Include="SuperPeerMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -50,9 +52,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SuperPeerImpl\SuperPeerImpl.csproj">
-      <Project>{B2C858CE-85BD-4317-A6AD-2A8967F58466}</Project>
-      <Name>SuperPeerImpl</Name>
+    <ProjectReference Include="..\CommonInterface\CommonInterface.csproj">
+      <Project>{6270EECF-C2FD-4E05-9444-D7D90B02A916}</Project>
+      <Name>CommonInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
