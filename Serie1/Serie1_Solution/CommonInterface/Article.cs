@@ -1,5 +1,8 @@
-﻿namespace CommonInterface
+﻿using System;
+
+namespace CommonInterface
 {
+    [Serializable]
     public struct Article
     {
         public string Title { get; set; }

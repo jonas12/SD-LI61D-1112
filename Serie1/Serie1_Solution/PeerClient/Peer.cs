@@ -8,7 +8,7 @@ namespace PeerClient
     {
         public Peer()
         {
-            Articles = new List<Article>();    
+            Articles = new List<Article>(); 
         }
 
         public List<Article> Articles { get; set; }

@@ -9,7 +9,7 @@ namespace SuperPeerClient
 
         public static void Main(string[] args)
         {
-            RemotingConfiguration.Configure(CONFIG_FILE_NAME,false);
+            RemotingConfiguration.Configure(CONFIG_FILE_NAME, false);
             Console.WriteLine("Waiting for peers");
             Console.ReadLine();
         }
