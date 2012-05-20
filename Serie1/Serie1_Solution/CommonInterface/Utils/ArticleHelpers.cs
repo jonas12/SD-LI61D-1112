@@ -1,4 +1,6 @@
-﻿namespace CommonInterface.Utils
+﻿using System;
+
+namespace CommonInterface.Utils
 {
     public static class ArticleHelpers
     {

@@ -58,7 +58,7 @@ namespace SuperPeerClient
 
         public void UnRegisterPeer(IPeer p)
         {
-            if(OnlinePeers.Remove(p))
+            if(!OnlinePeers.Remove(p))
             {
                 throw new PeerNotFoundException();
             }
@@ -76,6 +76,11 @@ namespace SuperPeerClient
             }
 
             return peers;
+        }
+
+        public override object InitializeLifetimeService()
+        {
+            return null;
         }
     }
 }

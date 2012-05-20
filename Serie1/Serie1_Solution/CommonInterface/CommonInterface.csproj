@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article.cs" />
+    <Compile Include="Exceptions\EmptyTitleException.cs" />
     <Compile Include="Exceptions\PeerAlreadyRegisteredException.cs" />
+    <Compile Include="Exceptions\PeerNotFoundException.cs" />
     <Compile Include="IPeer.cs" />
     <Compile Include="ISuperPeer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
