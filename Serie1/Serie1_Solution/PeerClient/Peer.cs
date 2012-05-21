@@ -55,7 +55,16 @@ namespace PeerClient
                     }
                 }
 
-                List<IPeer> peers = (List<IPeer>) OnlinePeers.Except(SuperPeer.GetPeers());
+                List<IPeer> peers = new List<IPeer>();
+
+                try
+                {
+                    peers = (List<IPeer>)OnlinePeers.Except(SuperPeer.GetPeers());
+                }
+                catch (WebException)
+                {
+                    throw new NotRegisteredToSuperPeerException();
+                }
 
                 OnlinePeers.AddRange(peers);
 
