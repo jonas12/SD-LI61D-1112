@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Xml.Serialization;
 
 namespace CommonInterface.Utils
@@ -25,6 +27,20 @@ namespace CommonInterface.Utils
             p.Articles = (List<Article>) serializer.Deserialize(reader);
 
             reader.Close();
+        }
+
+        public static bool IsAlive(this IPeer p)
+        {
+            try
+            {
+                p.IsAlive();
+            }
+            catch (WebException)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

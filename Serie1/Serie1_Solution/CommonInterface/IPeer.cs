@@ -9,5 +9,6 @@ namespace CommonInterface
         Article GetArticleBy(string title);
         void BindToSuperPeer(ISuperPeer p);
         void UnbindFromSuperPeer();
+        void Ping();
     }
 }

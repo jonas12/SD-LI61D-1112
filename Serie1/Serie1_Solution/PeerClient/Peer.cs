@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using CommonInterface;
 using CommonInterface.Exceptions;
 using CommonInterface.Utils;
@@ -27,8 +28,8 @@ namespace PeerClient
             {
                 throw new EmptyTitleException();
             }
-
-            if(SuperPeer == null)
+            
+            if(SuperPeer == null || !SuperPeer.IsAlive())
             {
                 throw new NotRegisteredToSuperPeerException();
             }
@@ -39,16 +40,41 @@ namespace PeerClient
             
             if(article.IsDefault())
             {
-                if(!((article = OnlinePeers.GetArticle(title)).IsDefault()))
+                foreach (IPeer p in OnlinePeers)
                 {
-                    return article;
+                    try
+                    {
+                        article = p.GetArticleBy(title);
+
+                        if (!article.IsDefault())
+                            return article;
+                    }
+                    catch (WebException)
+                    {
+                        OnlinePeers.Remove(p);
+                    }
                 }
 
                 List<IPeer> peers = (List<IPeer>) OnlinePeers.Except(SuperPeer.GetPeers());
 
                 OnlinePeers.AddRange(peers);
 
-                return peers.GetArticle(title);
+                foreach (IPeer p in peers)
+                {
+                    try
+                    {
+                        article = p.GetArticleBy(title);
+
+                        if (!article.IsDefault())
+                            return article;
+                    }
+                    catch (WebException)
+                    {
+                        OnlinePeers.Remove(p);
+                    }
+                }
+
+                return default(Article);
             }
 
             return article;
@@ -58,5 +84,7 @@ namespace PeerClient
         {
             SuperPeer = p;
         }
+
+        public void Ping() { }
     }
 }
