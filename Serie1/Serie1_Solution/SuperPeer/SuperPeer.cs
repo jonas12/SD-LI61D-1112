@@ -47,19 +47,38 @@ namespace SuperPeerClient
                     }
                 }
 
-                List<IPeer> peers;
+                List<IPeer> peers = new List<IPeer>();
 
                 foreach (ISuperPeer sp in SuperPeers)
                 {
-                    peers = (List<IPeer>) OnlinePeers.Except(sp.GetPeers());
-                    OnlinePeers.AddRange(peers);
-                    article = peers.GetArticle(title);
-
-                    if (article.IsDefault())
+                    try
                     {
-                        return article;
+                        peers = (List<IPeer>)OnlinePeers.Except(sp.GetPeers());
+                    }
+                    catch (WebException)
+                    {
+                        SuperPeers.Remove(sp);
+                    }
+
+                    OnlinePeers.AddRange(peers);
+                    
+                    foreach (IPeer p in peers)
+                    {
+                        try
+                        {
+                            article = p.GetArticleBy(title);
+
+                            if (!article.IsDefault())
+                                return article;
+                        }
+                        catch (WebException)
+                        {
+                            OnlinePeers.Remove(p);
+                        }
                     }
                 }
+
+                return default(Article);
             }
 
             return article;
@@ -76,7 +95,6 @@ namespace SuperPeerClient
                 throw new PeerAlreadyRegisteredException();
             }
 
-            p.
             OnlinePeers.Add(p);
         }
 
@@ -92,6 +110,8 @@ namespace SuperPeerClient
         {
             SuperPeers.Add(p);
         }
+
+        public void Ping(){}
 
         public List<IPeer> GetPeers()
         {
