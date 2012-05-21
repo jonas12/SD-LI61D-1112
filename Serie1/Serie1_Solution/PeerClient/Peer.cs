@@ -9,6 +9,8 @@ namespace PeerClient
 {
     public class Peer : MarshalByRefObject, IPeer
     {
+        public ISuperPeer SuperPeer { get; set; }
+
         public Peer()
         {
             Articles = new List<Article>(); 
@@ -26,6 +28,11 @@ namespace PeerClient
                 throw new EmptyTitleException();
             }
 
+            if(SuperPeer == null)
+            {
+                throw new NotRegisteredToSuperPeerException();
+            }
+
             title = title.ToLower();
 
             Article article = Articles.Find(a => a.Title.ToLower().Equals(title));
@@ -37,10 +44,25 @@ namespace PeerClient
                     return article;
                 }
 
-                // Call GetPeers()
+                List<IPeer> peers = (List<IPeer>) OnlinePeers.Except(SuperPeer.GetPeers());
+
+                OnlinePeers.AddRange(peers);
+
+                foreach (IPeer p in peers)
+                {
+                    article = p.GetArticleBy(title);
+
+                    if (!article.IsDefault())
+                        return article;
+                }
             }
 
             return article;
+        }
+
+        public void BindToSuperPeer(ISuperPeer p)
+        {
+            SuperPeer = p;
         }
     }
 }

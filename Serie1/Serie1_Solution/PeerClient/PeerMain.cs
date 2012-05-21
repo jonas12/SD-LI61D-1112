@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Net;
 using System.Runtime.Remoting;
 using CommonInterface;
 using CommonInterface.Exceptions;
 using CommonInterface.Utils;
-using PeerClient;
 
 namespace PeerClient
 {
@@ -29,7 +28,7 @@ namespace PeerClient
         {
             RemotingConfiguration.Configure(CONFIG_FILE_NAME, false);
             WellKnownClientTypeEntry[] clients = RemotingConfiguration.GetRegisteredWellKnownClientTypes();
-            
+
             ISuperPeer sp = (ISuperPeer) Activator.GetObject(typeof(ISuperPeer), clients[0].ObjectUrl);
             
             Peer p = new Peer();
@@ -39,7 +38,7 @@ namespace PeerClient
                 sp.RegisterPeer(p);
                 Console.WriteLine("Peer Connected");
             }
-            catch (Exception)
+            catch (WebException)
             {
                 Console.WriteLine("Super Peer is Offline");
                 return;
@@ -76,6 +75,11 @@ namespace PeerClient
                     {
                         Console.WriteLine("The title should not be empty");
                     }
+
+                    catch(NotRegisteredToSuperPeerException)
+                    {
+                        Console.WriteLine("Peer not registered on Super Peer");                      
+                    }
                 }
 
                 else
@@ -84,6 +88,7 @@ namespace PeerClient
                 }
             }
             
+            p.ToXml(FILE_NAME);
             sp.UnRegisterPeer(p);
         }
     }
