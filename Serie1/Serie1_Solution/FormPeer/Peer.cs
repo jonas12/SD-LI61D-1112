@@ -9,6 +9,8 @@ namespace FormPeer
 {
     public class Peer : MarshalByRefObject, IPeer
     {
+        public ISuperPeer SuperPeer { get; set; }
+
         public Peer()
         {
             Articles = new List<Article>(); 
@@ -41,6 +43,16 @@ namespace FormPeer
             }
 
             return article;
+        }
+
+        public void BindToSuperPeer(ISuperPeer p)
+        {
+            SuperPeer = p;
+        }
+
+        public void UnbindFromSuperPeer()
+        {
+            SuperPeer.UnRegisterPeer(this);
         }
     }
 }

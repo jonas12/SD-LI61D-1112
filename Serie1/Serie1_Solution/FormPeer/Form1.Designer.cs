@@ -76,6 +76,7 @@
             this.unregisterBtn.TabIndex = 3;
             this.unregisterBtn.Text = "unregister";
             this.unregisterBtn.UseVisualStyleBackColor = true;
+            this.unregisterBtn.Click += new System.EventHandler(this.unregisterBtn_Click);
             // 
             // artcPrint
             // 
@@ -139,6 +140,7 @@
             this.artclsrchBtn.TabIndex = 10;
             this.artclsrchBtn.Text = "Search";
             this.artclsrchBtn.UseVisualStyleBackColor = true;
+            this.artclsrchBtn.Click += new System.EventHandler(this.artclsrchBtn_Click);
             // 
             // Form1
             // 

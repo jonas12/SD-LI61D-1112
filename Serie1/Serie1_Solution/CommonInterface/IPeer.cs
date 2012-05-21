@@ -8,5 +8,6 @@ namespace CommonInterface
         List<Article> Articles { get; set; }
         Article GetArticleBy(string title);
         void BindToSuperPeer(ISuperPeer p);
+        void UnbindFromSuperPeer();
     }
 }
