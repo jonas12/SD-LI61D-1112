@@ -39,7 +39,7 @@ namespace PeerClient
             
             if(article.IsDefault())
             {
-                if (OnlinePeers.Any(p => !(article = p.GetArticleBy(title)).IsDefault()))
+                if(!((article = OnlinePeers.GetArticle(title)).IsDefault()))
                 {
                     return article;
                 }
@@ -48,13 +48,7 @@ namespace PeerClient
 
                 OnlinePeers.AddRange(peers);
 
-                foreach (IPeer p in peers)
-                {
-                    article = p.GetArticleBy(title);
-
-                    if (!article.IsDefault())
-                        return article;
-                }
+                return peers.GetArticle(title);
             }
 
             return article;
