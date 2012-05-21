@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using CommonInterface;
 using CommonInterface.Exceptions;
 using CommonInterface.Utils;
@@ -31,14 +32,33 @@ namespace SuperPeerClient
             
             if(article.IsDefault())
             {
-                if (OnlinePeers.Any(p => !(article = p.GetArticleBy(title)).IsDefault()))
+                foreach (IPeer p in OnlinePeers)
                 {
-                    return article;
+                    try
+                    {
+                        article = p.GetArticleBy(title);
+
+                        if (!article.IsDefault())
+                            return article;
+                    }
+                    catch (WebException)
+                    {
+                        UnRegisterPeer(p);
+                    }
                 }
+
+                List<IPeer> peers;
 
                 foreach (ISuperPeer sp in SuperPeers)
                 {
-                    
+                    peers = (List<IPeer>) OnlinePeers.Except(sp.GetPeers());
+                    OnlinePeers.AddRange(peers);
+                    article = peers.GetArticle(title);
+
+                    if (article.IsDefault())
+                    {
+                        return article;
+                    }
                 }
             }
 
