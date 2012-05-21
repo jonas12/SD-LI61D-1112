@@ -115,6 +115,7 @@
             this.spbcBtn.TabIndex = 7;
             this.spbcBtn.Text = "Became SuperPeer";
             this.spbcBtn.UseVisualStyleBackColor = true;
+            this.spbcBtn.Click += new System.EventHandler(this.spbcBtn_Click);
             // 
             // artclNametxt
             // 

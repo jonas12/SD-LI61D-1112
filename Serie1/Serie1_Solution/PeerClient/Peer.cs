@@ -85,6 +85,11 @@ namespace PeerClient
             SuperPeer = p;
         }
 
+        public void UnbindFromSuperPeer()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Ping() { }
     }
 }

@@ -111,6 +111,11 @@ namespace SuperPeerClient
             SuperPeers.Add(p);
         }
 
+        public void UnbindFromSuperPeer()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Ping(){}
 
         public List<IPeer> GetPeers()

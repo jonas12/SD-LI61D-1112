@@ -41,13 +41,14 @@ namespace FormPeer
 
             try
             {
-                sp.RegisterPeer(p);
+                p.BindToSuperPeer(sp);
                 spLoctxt.Text = clients[0].ObjectUrl;
                 registerBtn.Enabled = false;
                 unregisterBtn.Enabled = true;
                 isConnected = true;
                 if(url!=null)
                     RemotingConfiguration.RegisterWellKnownClientType(typeof(ISuperPeer),url);
+                artcPrint.AppendText(String.Format("Connected to {0}\n", (url ?? clients[0].ObjectUrl)));
             }
             catch (WebException)
             {
@@ -68,6 +69,7 @@ namespace FormPeer
                 registerBtn.Enabled = false;
                 unregisterBtn.Enabled = true;
                 isConnected = false;
+                artcPrint.AppendText("Unregistered\n");
             }
         }
 
@@ -99,11 +101,18 @@ namespace FormPeer
 
         private void artclsrchBtn_Click(object sender, EventArgs e)
         {
-            if (!isConnected)
-                return;
             string artname = artclNametxt.Text;
+
+            if (!isConnected || String.IsNullOrEmpty(artname))
+                return;
             Article a = p.GetArticleBy(artname);
-            PrintArticle(a);
+            if(!a.IsDefault())
+                PrintArticle(a);
+        }
+
+        private void spbcBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

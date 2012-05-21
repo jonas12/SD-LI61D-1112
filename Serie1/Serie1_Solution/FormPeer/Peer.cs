@@ -47,12 +47,23 @@ namespace FormPeer
 
         public void BindToSuperPeer(ISuperPeer p)
         {
+            p.RegisterPeer(p);
             SuperPeer = p;
         }
 
         public void UnbindFromSuperPeer()
         {
             SuperPeer.UnRegisterPeer(this);
+        }
+
+        public void Ping()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object InitializeLifetimeService()
+        {
+            return null;
         }
     }
 }
