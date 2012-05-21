@@ -7,5 +7,6 @@ namespace CommonInterface
         List<IPeer> OnlinePeers { get; set; }
         List<Article> Articles { get; set; }
         Article GetArticleBy(string title);
+        void BindToSuperPeer(ISuperPeer p);
     }
 }

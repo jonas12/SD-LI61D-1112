@@ -29,30 +29,33 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.spLoctxt = new System.Windows.Forms.TextBox();
             this.registerBtn = new System.Windows.Forms.Button();
             this.unregisterBtn = new System.Windows.Forms.Button();
-            this.sending = new System.Windows.Forms.TextBox();
+            this.artcPrint = new System.Windows.Forms.TextBox();
             this.incoming = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.spbcBtn = new System.Windows.Forms.Button();
+            this.artclNametxt = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.artclsrchBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(22, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "SuperPeer";
             // 
-            // textBox1
+            // spLoctxt
             // 
-            this.textBox1.Location = new System.Drawing.Point(75, 6);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(402, 20);
-            this.textBox1.TabIndex = 1;
+            this.spLoctxt.Location = new System.Drawing.Point(85, 6);
+            this.spLoctxt.Name = "spLoctxt";
+            this.spLoctxt.Size = new System.Drawing.Size(392, 20);
+            this.spLoctxt.TabIndex = 1;
             // 
             // registerBtn
             // 
@@ -74,15 +77,15 @@
             this.unregisterBtn.Text = "unregister";
             this.unregisterBtn.UseVisualStyleBackColor = true;
             // 
-            // sending
+            // artcPrint
             // 
-            this.sending.Location = new System.Drawing.Point(15, 132);
-            this.sending.Multiline = true;
-            this.sending.Name = "sending";
-            this.sending.ReadOnly = true;
-            this.sending.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.sending.Size = new System.Drawing.Size(218, 189);
-            this.sending.TabIndex = 4;
+            this.artcPrint.Location = new System.Drawing.Point(15, 132);
+            this.artcPrint.Multiline = true;
+            this.artcPrint.Name = "artcPrint";
+            this.artcPrint.ReadOnly = true;
+            this.artcPrint.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.artcPrint.Size = new System.Drawing.Size(218, 189);
+            this.artcPrint.TabIndex = 4;
             // 
             // incoming
             // 
@@ -112,18 +115,46 @@
             this.spbcBtn.Text = "Became SuperPeer";
             this.spbcBtn.UseVisualStyleBackColor = true;
             // 
+            // artclNametxt
+            // 
+            this.artclNametxt.Location = new System.Drawing.Point(85, 67);
+            this.artclNametxt.Name = "artclNametxt";
+            this.artclNametxt.Size = new System.Drawing.Size(148, 20);
+            this.artclNametxt.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 70);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Article Name";
+            // 
+            // artclsrchBtn
+            // 
+            this.artclsrchBtn.Location = new System.Drawing.Point(239, 67);
+            this.artclsrchBtn.Name = "artclsrchBtn";
+            this.artclsrchBtn.Size = new System.Drawing.Size(75, 23);
+            this.artclsrchBtn.TabIndex = 10;
+            this.artclsrchBtn.Text = "Search";
+            this.artclsrchBtn.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(491, 397);
+            this.Controls.Add(this.artclsrchBtn);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.artclNametxt);
             this.Controls.Add(this.spbcBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.incoming);
-            this.Controls.Add(this.sending);
+            this.Controls.Add(this.artcPrint);
             this.Controls.Add(this.unregisterBtn);
             this.Controls.Add(this.registerBtn);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.spLoctxt);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Peer";
@@ -136,13 +167,16 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox spLoctxt;
         private System.Windows.Forms.Button registerBtn;
         private System.Windows.Forms.Button unregisterBtn;
-        private System.Windows.Forms.TextBox sending;
+        private System.Windows.Forms.TextBox artcPrint;
         private System.Windows.Forms.TextBox incoming;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button spbcBtn;
+        private System.Windows.Forms.TextBox artclNametxt;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button artclsrchBtn;
     }
 }
 

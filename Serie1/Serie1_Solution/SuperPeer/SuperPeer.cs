@@ -36,7 +36,10 @@ namespace SuperPeerClient
                     return article;
                 }
 
-                GetPeers();
+                foreach (ISuperPeer sp in SuperPeers)
+                {
+                    
+                }
             }
 
             return article;
@@ -53,6 +56,7 @@ namespace SuperPeerClient
                 throw new PeerAlreadyRegisteredException();
             }
 
+            p.
             OnlinePeers.Add(p);
         }
 
@@ -62,6 +66,11 @@ namespace SuperPeerClient
             {
                 throw new PeerNotFoundException();
             }
+        }
+
+        public void BindToSuperPeer(ISuperPeer p)
+        {
+            SuperPeers.Add(p);
         }
 
         public List<IPeer> GetPeers()
