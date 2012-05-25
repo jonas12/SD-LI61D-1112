@@ -45,7 +45,11 @@
     <Compile Include="Exceptions\PeerAlreadyRegisteredException.cs" />
     <Compile Include="Exceptions\PeerNotFoundException.cs" />
     <Compile Include="IPeer.cs" />
+    <Compile Include="IPeerListCtx.cs" />
+    <Compile Include="IPeerRequestContext.cs" />
     <Compile Include="ISuperPeer.cs" />
+    <Compile Include="PeerListCtx.cs" />
+    <Compile Include="PeerRequestContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ArticleHelpers.cs" />
     <Compile Include="Utils\PeerHelpers.cs" />
