@@ -7,6 +7,6 @@ namespace CommonInterface
         List<ISuperPeer> SuperPeers { get; set; }
         void RegisterPeer(IPeer p);
         void UnRegisterPeer(IPeer p);
-        List<IPeer> GetPeers();
+        List<IPeer> GetPeers(IPeerRequestContext ctx);
     }
 }

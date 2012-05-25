@@ -59,7 +59,9 @@ namespace PeerClient
 
                 try
                 {
-                    peers = (List<IPeer>)OnlinePeers.Except(SuperPeer.GetPeers());
+                    IPeerListCtx plc = new PeerListCtx();
+                    IPeerRequestContext ctx = new PeerRequestContext(plc);
+                    peers = (List<IPeer>)OnlinePeers.Except(SuperPeer.GetPeers(ctx));
                 }
                 catch (WebException)
                 {
