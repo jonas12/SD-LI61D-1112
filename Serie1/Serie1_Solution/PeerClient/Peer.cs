@@ -61,6 +61,8 @@ namespace PeerClient
                 {
                     IPeerListCtx plc = new PeerListCtx();
                     IPeerRequestContext ctx = new PeerRequestContext(plc);
+                    ctx.CheckAndAdd(SuperPeer);//so faz add pois e o inicio da chain de getpeers
+
                     peers = (List<IPeer>)OnlinePeers.Except(SuperPeer.GetPeers(ctx));
                 }
                 catch (WebException)
@@ -98,7 +100,7 @@ namespace PeerClient
 
         public void UnbindFromSuperPeer()
         {
-            throw new NotImplementedException();
+            SuperPeer.UnRegisterPeer(this);
         }
 
         public void Ping() { }

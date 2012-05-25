@@ -26,6 +26,7 @@ namespace PeerClient
 
         public static void Main(string[] args)
         {
+            Console.ReadLine();
             RemotingConfiguration.Configure(CONFIG_FILE_NAME, false);
             WellKnownClientTypeEntry[] clients = RemotingConfiguration.GetRegisteredWellKnownClientTypes();
 

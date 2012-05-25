@@ -10,14 +10,19 @@ namespace SuperPeerClient
 {
     public class SuperPeer : MarshalByRefObject, ISuperPeer
     {
+
+        public List<Article> Articles { get; set; }
+        public List<IPeer> OnlinePeers { get; set; }
+        public List<ISuperPeer> SuperPeers { get; set; }
+        public List<IPeer> RegisteredPeers { get; set; }
+
         public SuperPeer()
         {
             Articles = new List<Article>();
             OnlinePeers = new List<IPeer>();
             SuperPeers = new List<ISuperPeer>();
+            RegisteredPeers = new List<IPeer>();
         }
-
-        public List<Article> Articles { get; set; }
 
         public Article GetArticleBy(string title)
         {
@@ -49,11 +54,16 @@ namespace SuperPeerClient
 
                 List<IPeer> peers = new List<IPeer>();
 
+                IPeerListCtx plc = new PeerListCtx();
+                IPeerRequestContext ctx = new PeerRequestContext(plc);
+                ctx.CheckAndAdd(this);//so faz add pois e o inicio da chain de getpeers
+
                 foreach (ISuperPeer sp in SuperPeers)
                 {
                     try
                     {
-                        peers = (List<IPeer>)OnlinePeers.Except(sp.GetPeers());
+                        ctx.CheckAndAdd(sp);
+                        peers = (List<IPeer>)OnlinePeers.Except(sp.GetPeers(ctx));
                     }
                     catch (WebException)
                     {
@@ -83,10 +93,6 @@ namespace SuperPeerClient
 
             return article;
         }
-
-        public List<IPeer> OnlinePeers { get; set; }
-
-        public List<ISuperPeer> SuperPeers { get; set; }
 
         public void RegisterPeer(IPeer p)
         {
