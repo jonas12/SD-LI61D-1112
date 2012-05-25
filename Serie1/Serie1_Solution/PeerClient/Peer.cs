@@ -10,20 +10,21 @@ namespace PeerClient
 {
     public class Peer : MarshalByRefObject, IPeer
     {
+        public int Id { get; private set; }
         public ISuperPeer SuperPeer { get; set; }
+        public IDictionary<int,IPeer> OnlinePeers { get; set; }
+        public List<Article> Articles { get; set; }
 
         public Peer()
         {
             Articles = new List<Article>();
-            OnlinePeers = new List<IPeer>();
+            OnlinePeers = new Dictionary<int,IPeer>();
+            Id = DateTime.Now.Ticks.GetHashCode();
         }
-
-        public List<IPeer> OnlinePeers { get; set; }
-
-        public List<Article> Articles { get; set; }
 
         public Article GetArticleBy(string title, bool checkPeers)
         {
+            Console.WriteLine(Id + " - Getting article - " + title);
             if (string.IsNullOrEmpty(title))
             {
                 throw new EmptyTitleException();
@@ -41,53 +42,54 @@ namespace PeerClient
             if (!article.IsDefault())
                 return article;
 
-            foreach (IPeer p in OnlinePeers)
+            foreach (KeyValuePair<int, IPeer> p in OnlinePeers)
             {
                 try
                 {
-                    article = p.GetArticleBy(title, false);
+                    article = p.Value.GetArticleBy(title, false);
 
                     if (!article.IsDefault())
                         return article;
                 }
                 catch (WebException)
                 {
-                    OnlinePeers.Remove(p);
+                    OnlinePeers.Remove(p.Key);
                 }
             }
+
             if (!checkPeers)
                 return default(Article);
 
-            List<IPeer> peers;
+            List<KeyValuePair<int, IPeer>> peers;
 
             try
             {
                 IPeerListCtx plc = new PeerListCtx();
                 IPeerRequestContext ctx = new PeerRequestContext(plc);
-                ctx.CheckAndAdd(SuperPeer);//so faz add pois e o inicio da chain de getpeers
+                ctx.CheckAndAdd(SuperPeer.Id);//so faz add pois e o inicio da chain de getpeers
 
-                peers = SuperPeer.GetPeers(ctx);
-                peers = OnlinePeers.Intersect(peers).Except(peers).ToList();
+                peers = PeerHelpers.ConcatAndReturnDif(OnlinePeers, SuperPeer.GetPeers(ctx),Id);
             }
             catch (WebException)
             {
                 throw new NotRegisteredToSuperPeerException();
             }
 
-            OnlinePeers.AddRange(peers);
-
-            foreach (IPeer p in peers)
+            if (peers != null)
             {
-                try
+                foreach (KeyValuePair<int, IPeer> p in peers)
                 {
-                    article = p.GetArticleBy(title, false);
+                    try
+                    {
+                        article = p.Value.GetArticleBy(title, false);
 
-                    if (!article.IsDefault())
-                        return article;
-                }
-                catch (WebException)
-                {
-                    OnlinePeers.Remove(p);
+                        if (!article.IsDefault())
+                            return article;
+                    }
+                    catch (WebException)
+                    {
+                        OnlinePeers.Remove(p.Key);
+                    }
                 }
             }
 
@@ -96,12 +98,13 @@ namespace PeerClient
 
         public void BindToSuperPeer(ISuperPeer p)
         {
+            Console.WriteLine(Id + " - Peer Binding to sp - " + p.Id);
             SuperPeer = p;
         }
 
         public void UnbindFromSuperPeer()
         {
-            SuperPeer.UnRegisterPeer(this);
+            SuperPeer.UnRegisterPeer(Id);
         }
 
         public void Ping() { }

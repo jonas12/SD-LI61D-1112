@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CommonInterface
 {
@@ -7,7 +8,7 @@ namespace CommonInterface
     {
         private IPeerListCtx pl;
         public int Jumps { get; set; }
-        public bool CheckAndAdd(ISuperPeer sp)
+        public bool CheckAndAdd(int sp)
         {
             return pl.CheckAndAdd(sp);
         }

@@ -4,7 +4,8 @@ namespace CommonInterface
 {
     public interface IPeer
     {
-        List<IPeer> OnlinePeers { get; set; }
+        int Id { get; }
+        IDictionary<int,IPeer> OnlinePeers { get; set; }
         List<Article> Articles { get; set; }
         Article GetArticleBy(string title, bool checkPeers);
         void BindToSuperPeer(ISuperPeer p);
