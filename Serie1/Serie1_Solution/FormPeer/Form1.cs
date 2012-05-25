@@ -10,12 +10,14 @@ using System.Text;
 using System.Windows.Forms;
 using CommonInterface;
 using CommonInterface.Utils;
+using SuperPeerClient;
 
 namespace FormPeer
 {
     public partial class Form1 : Form
     {
-        private IPeer p;
+        private Peer p;
+        private SuperPeer sp;
         private readonly string CONFIG_FILE_NAME = "FormPeer.exe.config";
         private readonly string FILE_NAME = "Articles.xml";
         private const string DefaultText = "Choose SuperPeer";
@@ -73,6 +75,26 @@ namespace FormPeer
             }
         }
 
+        private void ToSuperPeer()
+        {
+            ISuperPeer otherSuperPeer = p.SuperPeer;
+    
+            sp = new SuperPeer
+                     {
+                         Articles = p.Articles,
+                         OnlinePeers = p.OnlinePeers
+                     };
+
+            RemotingConfiguration.RegisterWellKnownServiceType(typeof(SuperPeer), "SuperPeer.soap", WellKnownObjectMode.Singleton);
+            
+            if (otherSuperPeer == null)
+            {
+                sp.SuperPeers.Add(p.SuperPeer);
+                p.SuperPeer.SuperPeers.Add(sp);
+                p.UnbindFromSuperPeer();
+            }
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -112,7 +134,7 @@ namespace FormPeer
 
         private void spbcBtn_Click(object sender, EventArgs e)
         {
-
+            ToSuperPeer();
         }
     }
 }

@@ -83,6 +83,10 @@
       <Project>{6270EECF-C2FD-4E05-9444-D7D90B02A916}</Project>
       <Name>CommonInterface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SuperPeer\SuperPeerClient.csproj">
+      <Project>{3DF6E8BF-BF7F-436D-8CF0-76D32CA79895}</Project>
+      <Name>SuperPeerClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
