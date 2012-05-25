@@ -118,15 +118,22 @@ namespace SuperPeerClient
 
         public void Ping(){}
 
-        public List<IPeer> GetPeers()
+        public List<IPeer> GetPeers(IPeerRequestContext ctx)
         {
+            if (ctx.Jumps<=0)
+            {
+                return new List<IPeer>();
+            }
+            ctx.Jumps -= 1;
+
             List<IPeer> peers = new List<IPeer>();
 
             peers.AddRange(OnlinePeers);
 
             foreach (SuperPeer superPeer in SuperPeers)
             {
-               peers.AddRange(superPeer.GetPeers());
+                if(ctx.CheckAndAdd(superPeer))
+                    peers.AddRange(superPeer.GetPeers(ctx));
             }
 
             return peers;
