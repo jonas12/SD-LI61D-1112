@@ -75,14 +75,15 @@ namespace FormPeer
         {
             WellKnownClientTypeEntry[] clients = RemotingConfiguration.GetRegisteredWellKnownClientTypes();
             ISuperPeer otherSuperPeer = (ISuperPeer) Activator.GetObject(typeof(ISuperPeer), clients[0].ObjectUrl);
-            
+
             SuperPeer sp = new SuperPeer
-                     {
-                         Articles = p.Articles,
-                         OnlinePeers = p.OnlinePeers
-                     };
+                             {
+                                 Articles = p.Articles,
+                                 OnlinePeers = p.OnlinePeers
+                             };
 
             RemotingConfiguration.RegisterWellKnownServiceType(typeof(SuperPeer), "SuperPeer.soap", WellKnownObjectMode.Singleton);
+            RemotingServices.Marshal(sp, "SuperPeer.soap"); 
 
             try
             {
@@ -96,6 +97,7 @@ namespace FormPeer
 
             sp.SuperPeers.Add(otherSuperPeer);
             otherSuperPeer.SuperPeers.Add(sp);
+            p = sp;
         }
 
         public Form1()
@@ -131,7 +133,7 @@ namespace FormPeer
             if (!isConnected || String.IsNullOrEmpty(artname))
                 return;
 
-            Article a = p.GetArticleBy(artname);
+            Article a = p.GetArticleBy(artname, false);
 
             if(!a.IsDefault())
                 PrintArticle(a);
