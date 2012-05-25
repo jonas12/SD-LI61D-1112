@@ -11,7 +11,7 @@ namespace FormPeer
 {
     public partial class Form1 : Form
     {
-        private Peer p;
+        private IPeer p;
         private readonly string CONFIG_FILE_NAME = "FormPeer.exe.config";
         private readonly string FILE_NAME = "Articles.xml";
         private const string DefaultText = "Choose SuperPeer";
@@ -42,10 +42,12 @@ namespace FormPeer
                 registerBtn.Enabled = false;
                 unregisterBtn.Enabled = true;
                 isConnected = true;
+
                 if(url!=null)
                     RemotingConfiguration.RegisterWellKnownClientType(typeof(ISuperPeer),url);
                 artcPrint.AppendText(String.Format("Connected to {0}\n", (url ?? clients[0].ObjectUrl)));
             }
+
             catch (WebException)
             {
                 spLoctxt.Text = DefaultText;
@@ -71,22 +73,29 @@ namespace FormPeer
 
         private void ToSuperPeer()
         {
-            ISuperPeer otherSuperPeer = p.SuperPeer;
-    
-            ISuperPeer sp = new SuperPeer
+            WellKnownClientTypeEntry[] clients = RemotingConfiguration.GetRegisteredWellKnownClientTypes();
+            ISuperPeer otherSuperPeer = (ISuperPeer) Activator.GetObject(typeof(ISuperPeer), clients[0].ObjectUrl);
+            
+            SuperPeer sp = new SuperPeer
                      {
                          Articles = p.Articles,
                          OnlinePeers = p.OnlinePeers
                      };
 
             RemotingConfiguration.RegisterWellKnownServiceType(typeof(SuperPeer), "SuperPeer.soap", WellKnownObjectMode.Singleton);
-            
-            if (otherSuperPeer != null)
+
+            try
             {
-                sp.SuperPeers.Add(p.SuperPeer);
-                p.SuperPeer.SuperPeers.Add(sp);
-                p.UnbindFromSuperPeer();
+                otherSuperPeer.UnRegisterPeer(p);
             }
+            catch (WebException)
+            {
+                p = sp;
+                return;
+            }
+
+            sp.SuperPeers.Add(otherSuperPeer);
+            otherSuperPeer.SuperPeers.Add(sp);
         }
 
         public Form1()
@@ -121,7 +130,9 @@ namespace FormPeer
 
             if (!isConnected || String.IsNullOrEmpty(artname))
                 return;
+
             Article a = p.GetArticleBy(artname);
+
             if(!a.IsDefault())
                 PrintArticle(a);
         }
