@@ -1,8 +1,10 @@
-﻿namespace CommonInterface
+﻿using System.Collections.Generic;
+
+namespace CommonInterface
 {
     public interface IPeerRequestContext
     {
         int Jumps { get; set; }
-        bool CheckAndAdd(ISuperPeer sp);
+        bool CheckAndAdd(int sp);
     }
 }

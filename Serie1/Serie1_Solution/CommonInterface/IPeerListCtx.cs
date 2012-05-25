@@ -1,7 +1,9 @@
-﻿namespace CommonInterface
+﻿using System.Collections.Generic;
+
+namespace CommonInterface
 {
     public interface IPeerListCtx
     {
-        bool CheckAndAdd(ISuperPeer sp);
+        bool CheckAndAdd(int sp);
     }
 }

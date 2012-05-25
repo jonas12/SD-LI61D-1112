@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Xml.Serialization;
 
@@ -33,7 +34,7 @@ namespace CommonInterface.Utils
         {
             try
             {
-                p.IsAlive();
+                p.Ping();
             }
             catch (WebException)
             {
@@ -41,6 +42,19 @@ namespace CommonInterface.Utils
             }
 
             return true;
+        }
+
+        // isto pode lançar excepção (webException) caso um peer se disconecte depois do getpeers ser chamado
+        //tratar mais tarde
+        public static List<KeyValuePair<int, IPeer>> ConcatAndReturnDif(IDictionary<int, IPeer> onlinePeers, IList<IPeer> getPeers, int myId)
+        {
+            IEnumerable<KeyValuePair<int, IPeer>> list = getPeers.Where(p => !onlinePeers.ContainsKey(p.Id) && p.Id != myId)
+                                                                    .Select(p => new KeyValuePair<int, IPeer>(p.Id, p));
+            foreach (var peer in list)
+            {
+                    onlinePeers.Add(peer.Key, peer.Value);
+            }
+            return list.ToList();
         }
     }
 }

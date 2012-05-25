@@ -39,9 +39,11 @@ namespace PeerClient
                 sp.RegisterPeer(p);
                 Console.WriteLine("Peer Connected");
             }
-            catch (WebException)
+            catch (WebException e)
             {
                 Console.WriteLine("Super Peer is Offline");
+                Console.WriteLine(e.StackTrace);
+                Console.ReadLine();
                 return;
             }
             
@@ -61,8 +63,12 @@ namespace PeerClient
                         Console.WriteLine();
                     }
                 }
+                if (cmd.Equals("show"))
+                {
+                    p.SuperPeer.ShowPeers();
+                }
 
-                if(cmd.Equals("search_article"))
+                if(cmd.Equals("sa"))
                 {
                     Console.Write("title -> ");
                     string title = Console.ReadLine();
@@ -70,7 +76,10 @@ namespace PeerClient
                     try
                     {
                         Article a = p.GetArticleBy(title,true);
-                        PrintArticle(a);
+                        if(a.IsDefault())
+                            Console.WriteLine("not found");
+                        else
+                            PrintArticle(a);
                     }
                     catch (EmptyTitleException)
                     {
@@ -90,7 +99,7 @@ namespace PeerClient
             }
             
             p.ToXml(FILE_NAME);
-            sp.UnRegisterPeer(p);
+            sp.UnRegisterPeer(p.Id);
         }
     }
 }
