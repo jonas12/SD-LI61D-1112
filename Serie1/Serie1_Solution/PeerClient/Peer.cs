@@ -10,12 +10,14 @@ namespace PeerClient
 {
     public class Peer : MarshalByRefObject, IPeer
     {
+        public int Id { get; private set; }
         public ISuperPeer SuperPeer { get; set; }
 
         public Peer()
         {
             Articles = new List<Article>();
             OnlinePeers = new List<IPeer>();
+            Id = DateTime.Now.Ticks.GetHashCode();
         }
 
         public List<IPeer> OnlinePeers { get; set; }

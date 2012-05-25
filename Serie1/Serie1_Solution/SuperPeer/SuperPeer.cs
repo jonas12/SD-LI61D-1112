@@ -10,7 +10,7 @@ namespace SuperPeerClient
 {
     public class SuperPeer : MarshalByRefObject, ISuperPeer
     {
-
+        public int Id { get; private set; }
         public List<Article> Articles { get; set; }
         public List<IPeer> OnlinePeers { get; set; }
         public List<ISuperPeer> SuperPeers { get; set; }
@@ -22,6 +22,7 @@ namespace SuperPeerClient
             OnlinePeers = new List<IPeer>();
             SuperPeers = new List<ISuperPeer>();
             RegisteredPeers = new List<IPeer>();
+            Id = DateTime.Now.Ticks.GetHashCode();
         }
 
         public Article GetArticleBy(string title, bool checkPeers)

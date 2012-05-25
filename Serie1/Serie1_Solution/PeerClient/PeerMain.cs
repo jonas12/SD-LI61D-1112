@@ -69,7 +69,7 @@ namespace PeerClient
 
                     try
                     {
-                        Article a = p.GetArticleBy(title);
+                        Article a = p.GetArticleBy(title,true);
                         PrintArticle(a);
                     }
                     catch (EmptyTitleException)

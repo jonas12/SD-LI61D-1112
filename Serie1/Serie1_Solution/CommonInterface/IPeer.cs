@@ -4,6 +4,7 @@ namespace CommonInterface
 {
     public interface IPeer
     {
+        int Id { get; }
         List<IPeer> OnlinePeers { get; set; }
         List<Article> Articles { get; set; }
         Article GetArticleBy(string title, bool checkPeers);
