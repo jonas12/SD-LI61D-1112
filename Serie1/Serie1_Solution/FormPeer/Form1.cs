@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Runtime.Remoting;
-using System.Text;
 using System.Windows.Forms;
 using CommonInterface;
 using CommonInterface.Utils;
@@ -17,7 +12,6 @@ namespace FormPeer
     public partial class Form1 : Form
     {
         private Peer p;
-        private SuperPeer sp;
         private readonly string CONFIG_FILE_NAME = "FormPeer.exe.config";
         private readonly string FILE_NAME = "Articles.xml";
         private const string DefaultText = "Choose SuperPeer";
@@ -79,7 +73,7 @@ namespace FormPeer
         {
             ISuperPeer otherSuperPeer = p.SuperPeer;
     
-            sp = new SuperPeer
+            ISuperPeer sp = new SuperPeer
                      {
                          Articles = p.Articles,
                          OnlinePeers = p.OnlinePeers
@@ -87,7 +81,7 @@ namespace FormPeer
 
             RemotingConfiguration.RegisterWellKnownServiceType(typeof(SuperPeer), "SuperPeer.soap", WellKnownObjectMode.Singleton);
             
-            if (otherSuperPeer == null)
+            if (otherSuperPeer != null)
             {
                 sp.SuperPeers.Add(p.SuperPeer);
                 p.SuperPeer.SuperPeers.Add(sp);
