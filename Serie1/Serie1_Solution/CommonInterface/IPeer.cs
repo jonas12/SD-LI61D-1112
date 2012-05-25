@@ -6,7 +6,7 @@ namespace CommonInterface
     {
         List<IPeer> OnlinePeers { get; set; }
         List<Article> Articles { get; set; }
-        Article GetArticleBy(string title);
+        Article GetArticleBy(string title, bool checkPeers);
         void BindToSuperPeer(ISuperPeer p);
         void UnbindFromSuperPeer();
         void Ping();

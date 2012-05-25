@@ -24,9 +24,9 @@ namespace SuperPeerClient
             RegisteredPeers = new List<IPeer>();
         }
 
-        public Article GetArticleBy(string title)
+        public Article GetArticleBy(string title, bool checkPeers)
         {
-            if(title == null)
+            if (title == null)
             {
                 throw new ArgumentNullException();
             }
@@ -34,64 +34,66 @@ namespace SuperPeerClient
             title = title.ToLower();
 
             Article article = Articles.Find(a => a.Title.ToLower().Equals(title));
-            
-            if(article.IsDefault())
+
+            if (!article.IsDefault())
+                return article;
+
+            foreach (IPeer p in OnlinePeers)
             {
-                foreach (IPeer p in OnlinePeers)
+                try
+                {
+                    article = p.GetArticleBy(title, false);
+
+                    if (!article.IsDefault())
+                        return article;
+                }
+                catch (WebException)
+                {
+                    UnRegisterPeer(p);
+                }
+            }
+
+            if (!checkPeers)
+                return default(Article);
+
+            List<IPeer> peers = new List<IPeer>();
+
+            IPeerListCtx plc = new PeerListCtx();
+            IPeerRequestContext ctx = new PeerRequestContext(plc);
+            ctx.CheckAndAdd(this);//so faz add pois e o inicio da chain de getpeers
+
+            foreach (ISuperPeer sp in SuperPeers)
+            {
+                try
+                {
+                    ctx.CheckAndAdd(sp);
+                    peers = peers = sp.GetPeers(ctx);
+                    peers = OnlinePeers.Intersect(peers).Except(peers).ToList();
+                }
+                catch (WebException)
+                {
+                    SuperPeers.Remove(sp);
+                }
+
+                OnlinePeers.AddRange(peers);
+
+                foreach (IPeer p in peers)
                 {
                     try
                     {
-                        article = p.GetArticleBy(title);
+                        article = p.GetArticleBy(title, false);
 
                         if (!article.IsDefault())
                             return article;
                     }
                     catch (WebException)
                     {
-                        UnRegisterPeer(p);
+                        OnlinePeers.Remove(p);
                     }
                 }
-
-                List<IPeer> peers = new List<IPeer>();
-
-                IPeerListCtx plc = new PeerListCtx();
-                IPeerRequestContext ctx = new PeerRequestContext(plc);
-                ctx.CheckAndAdd(this);//so faz add pois e o inicio da chain de getpeers
-
-                foreach (ISuperPeer sp in SuperPeers)
-                {
-                    try
-                    {
-                        ctx.CheckAndAdd(sp);
-                        peers = (List<IPeer>)OnlinePeers.Except(sp.GetPeers(ctx));
-                    }
-                    catch (WebException)
-                    {
-                        SuperPeers.Remove(sp);
-                    }
-
-                    OnlinePeers.AddRange(peers);
-                    
-                    foreach (IPeer p in peers)
-                    {
-                        try
-                        {
-                            article = p.GetArticleBy(title);
-
-                            if (!article.IsDefault())
-                                return article;
-                        }
-                        catch (WebException)
-                        {
-                            OnlinePeers.Remove(p);
-                        }
-                    }
-                }
-
-                return default(Article);
             }
 
-            return article;
+            return default(Article);
         }
 
         public void RegisterPeer(IPeer p)
@@ -106,7 +108,7 @@ namespace SuperPeerClient
 
         public void UnRegisterPeer(IPeer p)
         {
-            if(!OnlinePeers.Remove(p))
+            if (!OnlinePeers.Remove(p))
             {
                 throw new PeerNotFoundException();
             }
@@ -122,11 +124,11 @@ namespace SuperPeerClient
             throw new NotImplementedException();
         }
 
-        public void Ping(){}
+        public void Ping() { }
 
         public List<IPeer> GetPeers(IPeerRequestContext ctx)
         {
-            if (ctx.Jumps<=0)
+            if (ctx.Jumps <= 0)
             {
                 return new List<IPeer>();
             }
@@ -134,11 +136,12 @@ namespace SuperPeerClient
 
             List<IPeer> peers = new List<IPeer>();
 
-            peers.AddRange(OnlinePeers);
+            peers.AddRange(RegisteredPeers);
+            peers.Add(this);
 
             foreach (SuperPeer superPeer in SuperPeers)
             {
-                if(ctx.CheckAndAdd(superPeer))
+                if (ctx.CheckAndAdd(superPeer))
                     peers.AddRange(superPeer.GetPeers(ctx));
             }
 

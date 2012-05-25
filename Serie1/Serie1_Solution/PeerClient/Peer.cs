@@ -14,7 +14,7 @@ namespace PeerClient
 
         public Peer()
         {
-            Articles = new List<Article>(); 
+            Articles = new List<Article>();
             OnlinePeers = new List<IPeer>();
         }
 
@@ -22,14 +22,14 @@ namespace PeerClient
 
         public List<Article> Articles { get; set; }
 
-        public Article GetArticleBy(string title)
+        public Article GetArticleBy(string title, bool checkPeers)
         {
-            if(string.IsNullOrEmpty(title))
+            if (string.IsNullOrEmpty(title))
             {
                 throw new EmptyTitleException();
             }
-            
-            if(SuperPeer == null || !SuperPeer.IsAlive())
+
+            if (SuperPeer == null || !SuperPeer.IsAlive())
             {
                 throw new NotRegisteredToSuperPeerException();
             }
@@ -37,60 +37,61 @@ namespace PeerClient
             title = title.ToLower();
 
             Article article = Articles.Find(a => a.Title.ToLower().Equals(title));
-            
-            if(article.IsDefault())
+
+            if (!article.IsDefault())
+                return article;
+
+            foreach (IPeer p in OnlinePeers)
             {
-                foreach (IPeer p in OnlinePeers)
-                {
-                    try
-                    {
-                        article = p.GetArticleBy(title);
-
-                        if (!article.IsDefault())
-                            return article;
-                    }
-                    catch (WebException)
-                    {
-                        OnlinePeers.Remove(p);
-                    }
-                }
-
-                List<IPeer> peers = new List<IPeer>();
-
                 try
                 {
-                    IPeerListCtx plc = new PeerListCtx();
-                    IPeerRequestContext ctx = new PeerRequestContext(plc);
-                    ctx.CheckAndAdd(SuperPeer);//so faz add pois e o inicio da chain de getpeers
+                    article = p.GetArticleBy(title, false);
 
-                    peers = (List<IPeer>)OnlinePeers.Except(SuperPeer.GetPeers(ctx));
+                    if (!article.IsDefault())
+                        return article;
                 }
                 catch (WebException)
                 {
-                    throw new NotRegisteredToSuperPeerException();
+                    OnlinePeers.Remove(p);
                 }
-
-                OnlinePeers.AddRange(peers);
-
-                foreach (IPeer p in peers)
-                {
-                    try
-                    {
-                        article = p.GetArticleBy(title);
-
-                        if (!article.IsDefault())
-                            return article;
-                    }
-                    catch (WebException)
-                    {
-                        OnlinePeers.Remove(p);
-                    }
-                }
-
+            }
+            if (!checkPeers)
                 return default(Article);
+
+            List<IPeer> peers;
+
+            try
+            {
+                IPeerListCtx plc = new PeerListCtx();
+                IPeerRequestContext ctx = new PeerRequestContext(plc);
+                ctx.CheckAndAdd(SuperPeer);//so faz add pois e o inicio da chain de getpeers
+
+                peers = SuperPeer.GetPeers(ctx);
+                peers = OnlinePeers.Intersect(peers).Except(peers).ToList();
+            }
+            catch (WebException)
+            {
+                throw new NotRegisteredToSuperPeerException();
             }
 
-            return article;
+            OnlinePeers.AddRange(peers);
+
+            foreach (IPeer p in peers)
+            {
+                try
+                {
+                    article = p.GetArticleBy(title, false);
+
+                    if (!article.IsDefault())
+                        return article;
+                }
+                catch (WebException)
+                {
+                    OnlinePeers.Remove(p);
+                }
+            }
+
+            return default(Article);
         }
 
         public void BindToSuperPeer(ISuperPeer p)
