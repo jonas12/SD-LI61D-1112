@@ -30,7 +30,6 @@ namespace FormPeer
 
         private void TryRegisterPeer(string url)
         {
-            RemotingConfiguration.Configure(CONFIG_FILE_NAME, false);
             WellKnownClientTypeEntry[] clients = RemotingConfiguration.GetRegisteredWellKnownClientTypes();
 
             ISuperPeer sp = (ISuperPeer)Activator.GetObject(typeof(ISuperPeer), url ?? clients[0].ObjectUrl);
@@ -77,12 +76,15 @@ namespace FormPeer
             ISuperPeer otherSuperPeer = (ISuperPeer) Activator.GetObject(typeof(ISuperPeer), clients[0].ObjectUrl);
 
             SuperPeer sp = new SuperPeer
-                             {
-                                 Articles = p.Articles,
-                                 OnlinePeers = p.OnlinePeers
-                             };
+            {
+                Articles = p.Articles,
+                OnlinePeers = p.OnlinePeers
+            };
 
             RemotingConfiguration.RegisterWellKnownServiceType(typeof(SuperPeer), "SuperPeer.soap", WellKnownObjectMode.Singleton);
+
+            WellKnownServiceTypeEntry[] services = RemotingConfiguration.GetRegisteredWellKnownServiceTypes();
+
             RemotingServices.Marshal(sp, "SuperPeer.soap"); 
 
             try
@@ -109,7 +111,9 @@ namespace FormPeer
         {
             p = new Peer();
             p.FromXml(FILE_NAME);
-            
+
+            RemotingConfiguration.Configure(CONFIG_FILE_NAME, false);
+
             TryRegisterPeer(null);
         }
 
