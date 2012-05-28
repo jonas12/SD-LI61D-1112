@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
+using System.Threading;
 using CommonInterface;
 using CommonInterface.Exceptions;
 using CommonInterface.Utils;
+using SuperPeerClient;
 
-namespace SuperPeerClient
+namespace FormPeer
 {
     public class SuperPeer : MarshalByRefObject, ISuperPeer
     {
@@ -73,7 +73,7 @@ namespace SuperPeerClient
                 try
                 {
                     if(ctx.CheckAndAdd(sp.Key))
-                        PeerHelpers.ConcatAndReturnDif(ref peers, OnlinePeers, sp.Value.GetPeers(ctx),this);
+                        PeerHelpers.ConcatAndReturnDif(ref peers, OnlinePeers, sp.Value.GetPeers(ctx, Id),this);
                 }
                 catch (WebException)
                 {
@@ -136,14 +136,6 @@ namespace SuperPeerClient
             }
         }
 
-        public void ShowPeers()
-        {
-            foreach (var registeredPeer in RegisteredPeers)
-            {
-                Console.WriteLine(registeredPeer.Key+" - IsAlive? - "+registeredPeer.Value.IsAlive());
-            }
-        }
-
         public void UnbindFromSuperPeer(int id)
         {
             OnMethodCalled(this, new MethodCallEventArgs { Name = "UnbindFromSuperPeer", Id = id });
@@ -190,11 +182,10 @@ namespace SuperPeerClient
         public void Ping() { OnMethodCalled(this, new MethodCallEventArgs { Name = "Ping", Id = this.Id }); }
         public event EventHandler<MethodCallEventArgs> OnMethodCalled;
 
-        public IList<IPeer> GetPeers(IPeerRequestContext ctx)
+        public IList<IPeer> GetPeers(IPeerRequestContext ctx, int callerId)
         {
-            OnMethodCalled(this, new MethodCallEventArgs { Name = "GetPeers", Id=this.Id });
-
-            Console.WriteLine(Id+" - GettingPeers");
+            OnMethodCalled(this, new MethodCallEventArgs { Name = "GetPeers", Id=callerId });
+            Thread.Sleep(3000);
             if (ctx.Jumps <= 0)
             {
                 return new List<IPeer>();
@@ -204,6 +195,8 @@ namespace SuperPeerClient
             List<IPeer> list = new List<IPeer> {this};
             foreach (var peer in RegisteredPeers)
             {
+                if (peer.Key == callerId) continue;
+                
                 if (!peer.Value.IsAlive())
                     toRemove.Add(peer.Key);
                 else
@@ -222,7 +215,7 @@ namespace SuperPeerClient
                 try
                 {
                     if(ctx.CheckAndAdd(sp.Key))
-                        list.AddRange(sp.Value.GetPeers(ctx));
+                        list.AddRange(sp.Value.GetPeers(ctx, Id));
                 }
                 catch (WebException)
                 {

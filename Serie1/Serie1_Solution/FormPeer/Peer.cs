@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using CommonInterface;
 using CommonInterface.Exceptions;
 using CommonInterface.Utils;
@@ -9,61 +9,118 @@ namespace FormPeer
 {
     public class Peer : MarshalByRefObject, IPeer
     {
+        public int Id { get; private set; }
         public ISuperPeer SuperPeer { get; set; }
+        public IDictionary<int,IPeer> OnlinePeers { get; set; }
+        public List<Article> Articles { get; set; }
 
         public Peer()
         {
-            Articles = new List<Article>(); 
-            OnlinePeers = new List<IPeer>();
+            Articles = new List<Article>();
+            OnlinePeers = new Dictionary<int,IPeer>();
+            Id = DateTime.Now.Ticks.GetHashCode();
         }
 
-        public List<IPeer> OnlinePeers { get; set; }
-
-        public List<Article> Articles { get; set; }
-
-        public Article GetArticleBy(string title)
+        public Article GetArticleBy(string title, bool checkPeers)
         {
-            if(string.IsNullOrEmpty(title))
+            OnMethodCalled(this,new MethodCallEventArgs{Name = "GetArticle"});
+            
+            Console.WriteLine(Id + " - Getting article - " + title);
+            if (string.IsNullOrEmpty(title))
             {
                 throw new EmptyTitleException();
+            }
+
+            if (SuperPeer == null || !SuperPeer.IsAlive())
+            {
+                throw new NotRegisteredToSuperPeerException();
             }
 
             title = title.ToLower();
 
             Article article = Articles.Find(a => a.Title.ToLower().Equals(title));
-            
-            if(article.IsDefault())
-            {
-                if (OnlinePeers.Any(p => !(article = p.GetArticleBy(title)).IsDefault()))
-                {
-                    return article;
-                }
 
-                // Call GetPeers()
+            if (!article.IsDefault())
+                return article;
+            List<int> toRemove = new List<int>();
+            foreach (KeyValuePair<int, IPeer> p in OnlinePeers)
+            {
+                try
+                {
+                    article = p.Value.GetArticleBy(title, false);
+
+                    if (!article.IsDefault())
+                        return article;
+                }
+                catch (WebException)
+                {
+                    toRemove.Add(p.Key);
+                }
             }
 
-            return article;
+            foreach (var k in toRemove)
+            {
+                OnlinePeers.Remove(k);
+            }
+
+            if (!checkPeers)
+                return default(Article);
+
+            IList<KeyValuePair<int, IPeer>> peers = new List<KeyValuePair<int,IPeer>>();
+
+            try
+            {
+                IPeerListCtx plc = new PeerListCtx();
+                IPeerRequestContext ctx = new PeerRequestContext(plc);
+                ctx.CheckAndAdd(SuperPeer.Id);//so faz add pois e o inicio da chain de getpeers
+
+                PeerHelpers.ConcatAndReturnDif(ref peers, OnlinePeers, SuperPeer.GetPeers(ctx, Id),this);
+            }
+            catch (WebException)
+            {
+                throw new NotRegisteredToSuperPeerException();
+            }
+            if (peers != null)
+            {
+                toRemove = new List<int>();
+                foreach (KeyValuePair<int, IPeer> p in peers)
+                {
+                    try
+                    {
+                        article = p.Value.GetArticleBy(title, false);
+
+                        if (!article.IsDefault())
+                            return article;
+                    }
+                    catch (WebException)
+                    {
+                        toRemove.Add(p.Key);
+                    }
+                }
+                foreach (var k in toRemove)
+                {
+                    OnlinePeers.Remove(k);
+                }
+            }
+
+            return default(Article);
         }
 
-        public void BindToSuperPeer(ISuperPeer p)
+        public void BindToSuperPeer(ISuperPeer sp)
         {
-            p.RegisterPeer(p);
-            SuperPeer = p;
+            Console.WriteLine(Id + "- BindingTo:" + sp.Id);
+            SuperPeer = sp;
+            SuperPeer.RegisterPeer(this);
         }
 
         public void UnbindFromSuperPeer()
         {
-            SuperPeer.UnRegisterPeer(this);
+
+            SuperPeer.UnRegisterPeer(Id);
         }
 
-        public void Ping()
-        {
-            throw new NotImplementedException();
-        }
+        public void Ping() { OnMethodCalled(this, new MethodCallEventArgs { Name = "Ping" }); }
 
-        public override object InitializeLifetimeService()
-        {
-            return null;
-        }
+        public event EventHandler<MethodCallEventArgs> OnMethodCalled;
     }
 }

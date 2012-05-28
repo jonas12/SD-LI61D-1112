@@ -97,6 +97,7 @@
             this.incoming.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.incoming.Size = new System.Drawing.Size(218, 189);
             this.incoming.TabIndex = 5;
+            
             // 
             // label2
             // 

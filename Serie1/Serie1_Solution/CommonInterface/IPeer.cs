@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CommonInterface
 {
@@ -8,8 +9,9 @@ namespace CommonInterface
         IDictionary<int,IPeer> OnlinePeers { get; set; }
         List<Article> Articles { get; set; }
         Article GetArticleBy(string title, bool checkPeers);
-        void BindToSuperPeer(ISuperPeer p);
+        void BindToSuperPeer(ISuperPeer sp);
         void UnbindFromSuperPeer();
         void Ping();
+        event EventHandler<MethodCallEventArgs> OnMethodCalled;
     }
 }

@@ -48,6 +48,7 @@
     <Compile Include="IPeerListCtx.cs" />
     <Compile Include="IPeerRequestContext.cs" />
     <Compile Include="ISuperPeer.cs" />
+    <Compile Include="MethodCallEventArgs.cs" />
     <Compile Include="PeerListCtx.cs" />
     <Compile Include="PeerRequestContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

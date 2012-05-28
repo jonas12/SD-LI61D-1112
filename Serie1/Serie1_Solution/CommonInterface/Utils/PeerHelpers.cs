@@ -46,15 +46,16 @@ namespace CommonInterface.Utils
 
         // isto pode lançar excepção (webException) caso um peer se disconecte depois do getpeers ser chamado
         //tratar mais tarde
-        public static List<KeyValuePair<int, IPeer>> ConcatAndReturnDif(IDictionary<int, IPeer> onlinePeers, IList<IPeer> getPeers, int myId)
+        public static void ConcatAndReturnDif(ref IList<KeyValuePair<int,IPeer>> list,IDictionary<int, IPeer> onlinePeers, IList<IPeer> getPeers, IPeer peer)
         {
-            IEnumerable<KeyValuePair<int, IPeer>> list = getPeers.Where(p => !onlinePeers.ContainsKey(p.Id) && p.Id != myId)
+            IEnumerable<KeyValuePair<int, IPeer>> list2 = getPeers.Where(p => !onlinePeers.ContainsKey(p.Id) && p.Id != peer.Id)
                                                                     .Select(p => new KeyValuePair<int, IPeer>(p.Id, p));
-            foreach (var peer in list)
+            foreach (var kvp in list2)
             {
-                    onlinePeers.Add(peer.Key, peer.Value);
+                list.Add(kvp);
+                peer.OnlinePeers.Add(kvp);
             }
-            return list.ToList();
+
         }
     }
 }

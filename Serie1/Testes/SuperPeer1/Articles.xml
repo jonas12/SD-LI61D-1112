@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Articles xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Article>
+    <Title>Bananas</Title>
+    <Authors>
+      <string>Antonio Dente</string>
+    </Authors>
+    <PublishYear>2012</PublishYear>
+    <Summary>A book about something</Summary>
+  </Article>
+  <Article>
+    <Title>Laranjas</Title>
+    <Authors>
+      <string>Antonio Dente</string>
+    </Authors>
+    <PublishYear>2012</PublishYear>
+    <Summary>A book about something</Summary>
+  </Article>
+  <Article>
+    <Title>A book 3</Title>
+    <Authors>
+      <string>José Casimiro</string>
+    </Authors>
+    <PublishYear>2012</PublishYear>
+    <Summary>A book about something</Summary>
+  </Article>
+</Articles>

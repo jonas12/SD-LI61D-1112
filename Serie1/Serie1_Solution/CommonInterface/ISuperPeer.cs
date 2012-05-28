@@ -7,9 +7,9 @@ namespace CommonInterface
     {
         IDictionary<int,ISuperPeer> SuperPeers { get; set; }
         IDictionary<int, IPeer> RegisteredPeers { get; set; }
-        IList<IPeer> GetPeers(IPeerRequestContext ctx);
+        IList<IPeer> GetPeers(IPeerRequestContext ctx, int callerId);
         void RegisterPeer(IPeer p);
         void UnRegisterPeer(int pId);
-        void ShowPeers();
+        void UnbindFromSuperPeer(int id);
     }
 }

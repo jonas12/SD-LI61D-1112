@@ -60,7 +60,7 @@ namespace PeerClient
             if (!checkPeers)
                 return default(Article);
 
-            List<KeyValuePair<int, IPeer>> peers;
+            IList<KeyValuePair<int, IPeer>> peers = new List<KeyValuePair<int,IPeer>>();
 
             try
             {
@@ -68,7 +68,7 @@ namespace PeerClient
                 IPeerRequestContext ctx = new PeerRequestContext(plc);
                 ctx.CheckAndAdd(SuperPeer.Id);//so faz add pois e o inicio da chain de getpeers
 
-                peers = PeerHelpers.ConcatAndReturnDif(OnlinePeers, SuperPeer.GetPeers(ctx),Id);
+                PeerHelpers.ConcatAndReturnDif(ref peers, OnlinePeers, SuperPeer.GetPeers(ctx),this);
             }
             catch (WebException)
             {
@@ -96,10 +96,10 @@ namespace PeerClient
             return default(Article);
         }
 
-        public void BindToSuperPeer(ISuperPeer p)
+        public void BindToSuperPeer(ISuperPeer sp)
         {
-            Console.WriteLine(Id + " - Peer Binding to sp - " + p.Id);
-            SuperPeer = p;
+            Console.WriteLine(Id + " - Peer Binding to sp - " + sp.Id);
+            SuperPeer = sp;
         }
 
         public void UnbindFromSuperPeer()

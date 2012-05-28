@@ -68,6 +68,7 @@ namespace PeerClient
                     p.SuperPeer.ShowPeers();
                 }
 
+                
                 if(cmd.Equals("sa"))
                 {
                     Console.Write("title -> ");
