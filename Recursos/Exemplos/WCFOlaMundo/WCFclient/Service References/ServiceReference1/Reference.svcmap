@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a1615a50-98ea-41c3-acbc-37a136047de1" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8080/ServiceOla" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ServiceOla.xsd" MetadataType="Schema" ID="c264d2dd-6c37-45f8-9464-e0fb7765b875" SourceId="1" SourceUrl="http://localhost:8080/ServiceOla?xsd=xsd2" />
+    <MetadataFile FileName="ServiceOla1.xsd" MetadataType="Schema" ID="b4f4b2d6-abbb-445f-8dc9-c6f223761448" SourceId="1" SourceUrl="http://localhost:8080/ServiceOla?xsd=xsd3" />
+    <MetadataFile FileName="ServiceOla2.xsd" MetadataType="Schema" ID="66a07f20-f9aa-4442-9e8b-b2d2a759b35b" SourceId="1" SourceUrl="http://localhost:8080/ServiceOla?xsd=xsd0" />
+    <MetadataFile FileName="ServiceOla3.xsd" MetadataType="Schema" ID="a4f08447-e1b4-429c-bdbb-0e391877e6d8" SourceId="1" SourceUrl="http://localhost:8080/ServiceOla?xsd=xsd1" />
+    <MetadataFile FileName="ServiceOla4.xsd" MetadataType="Schema" ID="b2b2cbe3-7118-42e9-ab35-1da1622ca1cc" SourceId="1" SourceUrl="http://localhost:8080/ServiceOla?xsd=xsd4" />
+    <MetadataFile FileName="ServiceOla.wsdl" MetadataType="Wsdl" ID="9ef7309e-4fa3-4be5-ab47-95f989cf92dc" SourceId="1" SourceUrl="http://localhost:8080/ServiceOla" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="XMLSchemaPTAddress"
+    targetNamespace="http://SD/PTAddress.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://SD/PTAddress.xsd"
+    xmlns:myns="http://SD/PTAddress.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:attributeGroup name="MyAttributes"  >
+    <xs:attribute name="Pais" type="xs:string" use="required" form="qualified"  />
+    <xs:attribute name="PaisCode" type="xs:int" use="required" form="qualified"  />
+  </xs:attributeGroup>
+  
+  <xs:element name="address" type="PTAddress">
+  </xs:element>
+  <xs:complexType name="PTAddress">
+    <xs:sequence>
+      <xs:element name="nome" type="xs:string" />
+      <xs:element name="rua" type="xs:string" />
+      <xs:element name="numero" type="xs:int" minOccurs="1" maxOccurs="3" />
+      <xs:element name="cidade" type="xs:string" />
+      <xs:element name="codigo-postal" type="xs:string" />
+    </xs:sequence>
+    <xs:attributeGroup ref="MyAttributes"   />
+  </xs:complexType>
+  
+</xs:schema>

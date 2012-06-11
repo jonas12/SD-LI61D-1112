@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" 
+            xmlns:a="http://www.w3.org/2005/08/addressing">
+  <s:Header>
+    <a:Action s:mustUnderstand="1">http://www.w3.org/2005/08/addressing/soap/fault</a:Action>
+    <a:RelatesTo>urn:uuid:66d4c7a8-dc0a-4305-b229-180221dfae1c</a:RelatesTo>
+  </s:Header>
+  <s:Body>
+    <s:Fault>
+      <s:Code>
+        <s:Value>s:Sender</s:Value>
+        <s:Subcode>
+          <s:Value>a:DestinationUnreachable</s:Value>
+        </s:Subcode>
+      </s:Code>
+      <s:Reason>
+        <s:Text xml:lang="pt-PT">
+          The message with To 'http://localhost:8081/ServiceOla' cannot be processed
+          at the receiver, due to an AddressFilter mismatch at the EndpointDispatcher.
+          Check that the sender and receiver's EndpointAddresses agree.
+        </s:Text>
+      </s:Reason>
+    </s:Fault>
+  </s:Body>
+</s:Envelope>

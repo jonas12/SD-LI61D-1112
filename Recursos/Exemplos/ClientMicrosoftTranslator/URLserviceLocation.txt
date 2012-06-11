@@ -1,0 +1,1 @@
+http://api.microsofttranslator.com/V2/soap.svc

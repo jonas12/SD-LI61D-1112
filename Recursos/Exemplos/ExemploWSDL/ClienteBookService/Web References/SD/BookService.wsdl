@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://DEETC.SES.SD" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://DEETC.SES.SD" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Exemplo de WS de cotação de Livros</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://DEETC.SES.SD">
+      <s:element name="getISBN">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getISBNResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getISBNResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UmSoapHeader" type="tns:UmSoapHeader" />
+      <s:complexType name="UmSoapHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="anything" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="inteiros" type="tns:ArrayOfInt" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getBookPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="isbn" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getBookPriceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getBookPriceResult" type="s:float" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="submitPOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="po" type="tns:PurchaseOrder" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PurchaseOrder">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="accountName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="paddress" type="tns:PTAddress" />
+          <s:element minOccurs="0" maxOccurs="1" name="itemBook" type="tns:Book" />
+          <s:element minOccurs="0" maxOccurs="1" name="t" type="tns:ArrayOfAnyType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PTAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="nome" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rua" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numero" type="tns:ArrayOfInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="cidade" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="codigopostal" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Book">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="isbn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="quantity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="price" type="s:float" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="submitPOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="submitPOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getbook">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="isbn" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="qty" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBook">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Book" nillable="true" type="tns:Book" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getbookResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getbookResult" type="tns:ArrayOfBook" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getISBNSoapIn">
+    <wsdl:part name="parameters" element="tns:getISBN" />
+  </wsdl:message>
+  <wsdl:message name="getISBNSoapOut">
+    <wsdl:part name="parameters" element="tns:getISBNResponse" />
+  </wsdl:message>
+  <wsdl:message name="getISBNUmSoapHeader">
+    <wsdl:part name="UmSoapHeader" element="tns:UmSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="getBookPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:getBookPrice" />
+  </wsdl:message>
+  <wsdl:message name="getBookPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:getBookPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="submitPOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:submitPOrder" />
+  </wsdl:message>
+  <wsdl:message name="submitPOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:submitPOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="getbookSoapIn">
+    <wsdl:part name="parameters" element="tns:getbook" />
+  </wsdl:message>
+  <wsdl:message name="getbookSoapOut">
+    <wsdl:part name="parameters" element="tns:getbookResponse" />
+  </wsdl:message>
+  <wsdl:portType name="BookServiceSoap">
+    <wsdl:operation name="getISBN">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obter um ISBN dado um título: Formato: D-DDD-DDDDD-D</wsdl:documentation>
+      <wsdl:input message="tns:getISBNSoapIn" />
+      <wsdl:output message="tns:getISBNSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getBookPrice">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">dado um isbn com formato DD-DDDD-D obtem o preço do livro</wsdl:documentation>
+      <wsdl:input message="tns:getBookPriceSoapIn" />
+      <wsdl:output message="tns:getBookPriceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="submitPOrder">
+      <wsdl:input message="tns:submitPOrderSoapIn" />
+      <wsdl:output message="tns:submitPOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getbook">
+      <wsdl:input message="tns:getbookSoapIn" />
+      <wsdl:output message="tns:getbookSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BookServiceSoap" type="tns:BookServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getISBN">
+      <soap:operation soapAction="http://DEETC.SES.SD/getISBN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:getISBNUmSoapHeader" part="UmSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:getISBNUmSoapHeader" part="UmSoapHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBookPrice">
+      <soap:operation soapAction="http://DEETC.SES.SD/getBookPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitPOrder">
+      <soap:operation soapAction="http://DEETC.SES.SD/submitPOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getbook">
+      <soap:operation soapAction="http://DEETC.SES.SD/getbook" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BookServiceSoap12" type="tns:BookServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getISBN">
+      <soap12:operation soapAction="http://DEETC.SES.SD/getISBN" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:getISBNUmSoapHeader" part="UmSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:getISBNUmSoapHeader" part="UmSoapHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBookPrice">
+      <soap12:operation soapAction="http://DEETC.SES.SD/getBookPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitPOrder">
+      <soap12:operation soapAction="http://DEETC.SES.SD/submitPOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getbook">
+      <soap12:operation soapAction="http://DEETC.SES.SD/getbook" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BookService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Exemplo de WS de cotação de Livros</wsdl:documentation>
+    <wsdl:port name="BookServiceSoap" binding="tns:BookServiceSoap">
+      <soap:address location="http://localhost:1077/BookService/BookService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="BookServiceSoap12" binding="tns:BookServiceSoap12">
+      <soap12:address location="http://localhost:1077/BookService/BookService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

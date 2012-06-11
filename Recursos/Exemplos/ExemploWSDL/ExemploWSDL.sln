@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "BookService", "BookService\", "{D517C96E-6399-4D18-94D5-61BA52303D3B}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/BookService"
+		Debug.AspNetCompiler.PhysicalPath = "BookService\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\BookService\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/BookService"
+		Release.AspNetCompiler.PhysicalPath = "BookService\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\BookService\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "1077"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteBookService", "ClienteBookService\ClienteBookService.csproj", "{95B6983B-0CC1-44E3-8037-AB5DC7FA002B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|.NET = Release|.NET
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D517C96E-6399-4D18-94D5-61BA52303D3B}.Debug|.NET.ActiveCfg = Debug|.NET
+		{D517C96E-6399-4D18-94D5-61BA52303D3B}.Debug|.NET.Build.0 = Debug|.NET
+		{D517C96E-6399-4D18-94D5-61BA52303D3B}.Debug|Any CPU.ActiveCfg = Debug|.NET
+		{D517C96E-6399-4D18-94D5-61BA52303D3B}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
+		{D517C96E-6399-4D18-94D5-61BA52303D3B}.Debug|Mixed Platforms.Build.0 = Debug|.NET
+		{D517C96E-6399-4D18-94D5-61BA52303D3B}.Release|.NET.ActiveCfg = Debug|.NET
+		{D517C96E-6399-4D18-94D5-61BA52303D3B}.Release|.NET.Build.0 = Debug|.NET
+		{D517C96E-6399-4D18-94D5-61BA52303D3B}.Release|Any CPU.ActiveCfg = Debug|.NET
+		{D517C96E-6399-4D18-94D5-61BA52303D3B}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
+		{D517C96E-6399-4D18-94D5-61BA52303D3B}.Release|Mixed Platforms.Build.0 = Debug|.NET
+		{95B6983B-0CC1-44E3-8037-AB5DC7FA002B}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{95B6983B-0CC1-44E3-8037-AB5DC7FA002B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95B6983B-0CC1-44E3-8037-AB5DC7FA002B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95B6983B-0CC1-44E3-8037-AB5DC7FA002B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{95B6983B-0CC1-44E3-8037-AB5DC7FA002B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{95B6983B-0CC1-44E3-8037-AB5DC7FA002B}.Release|.NET.ActiveCfg = Release|Any CPU
+		{95B6983B-0CC1-44E3-8037-AB5DC7FA002B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95B6983B-0CC1-44E3-8037-AB5DC7FA002B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95B6983B-0CC1-44E3-8037-AB5DC7FA002B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{95B6983B-0CC1-44E3-8037-AB5DC7FA002B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" 
+            xmlns:a="http://www.w3.org/2005/08/addressing">
+  <s:Header>
+    <a:Action s:mustUnderstand="1">http://tempuri.org/IServiceOla/getDataMTOM</a:Action>
+    <a:MessageID>urn:uuid:66d4c7a8-dc0a-4305-b229-180221dfae1c</a:MessageID>
+    <a:ReplyTo>
+      <a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address>
+    </a:ReplyTo>
+    <a:To s:mustUnderstand="1">http://localhost:8081/ServiceOla</a:To>
+  </s:Header>
+  <s:Body>
+    <getDataMTOM xmlns="http://tempuri.org/">
+      <arg>
+        <xop:Include href="cid:http://tempuri.org/1/634417607422120000" 
+                     xmlns:xop="http://www.w3.org/2004/08/xop/include"/>
+      </arg>
+    </getDataMTOM>
+  </s:Body>
+</s:Envelope>
+
+<!--
+Content-ID: <http://tempuri.org/1/634417607422120000>
+Content-Transfer-Encoding: binary
+Content-Type: application/octet-stream
+UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU . . . 
+. . .
+UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+-->

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" 
+            xmlns:a="http://www.w3.org/2005/08/addressing">
+  <s:Header>
+      <a:Action s:mustUnderstand="1">
+            http://tempuri.org/IServiceCtx/DoWork
+      </a:Action>
+      <a:MessageID>urn:uuid:2985c05b-b03b-45dc-8f58-f82c27e7cb84</a:MessageID>
+      <a:ReplyTo>
+           <a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address>
+      </a:ReplyTo>
+      <Context xmlns="http://schemas.microsoft.com/ws/2006/05/context">
+          <Property name="clientName">luis</Property>
+          <Property name="AccessID">QWERTY</Property>
+      </Context>
+      <a:To s:mustUnderstand="1">http://localhost:8732/HostService/ServiceCtx/</a:To>
+  </s:Header>
+  <s:Body>
+      <DoWork xmlns="http://tempuri.org/">
+      </DoWork>
+  </s:Body>
+</s:Envelope>

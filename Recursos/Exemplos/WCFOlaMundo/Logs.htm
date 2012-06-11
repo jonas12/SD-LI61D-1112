@@ -1,0 +1,62 @@
+<html>
+<head>
+  <meta name="Generator" content="TCP Viewer">
+  <title>TCP Viewer Log File</title>
+  <style type="text/css">
+    <!--
+    span {font-size: 10pt; font-family: "Courier New", Courier, monospace}
+    span.tserror {color: red}
+    span.tsmsg {color: navy}
+    span.tsdata {color: black}
+    span.tsinform {color: maroon}
+    body {background: white; margin-top: 0; margin-right: 0; margin-left: 0; margin-bottom: 0}
+    -->
+  </style>
+</head>
+<body>
+<span class="tsmsg">23-05-2011 19:59:43.491; Resolving Remote Host<br />
+23-05-2011 19:59:43.538; Remote Host resolved to 127.0.0.1<br />
+23-05-2011 19:59:43.554; Local Port (8081) opened<br />
+23-05-2011 19:59:43.554; Waiting for connections<br />
+23-05-2011 20:00:17.722; 500: Client connected; 127.0.0.1:3802<br />
+23-05-2011 20:00:17.722; 500: Connecting to Server<br />
+23-05-2011 20:00:17.722; 500: Connected to Server<br />
+23-05-2011 20:00:17.722; 500: Client to Server (354 bytes)<br />
+</span><span class="tsdata">POST /ServiceOla HTTP/1.1<br />
+MIME-Version: 1.0<br />
+Content-Type: multipart/related; type="application/xop+xml";start="&lt;http://tempuri.org/0&gt;";boundary="uuid:4c355dce-20ed-4766-84ed-019d685bb58b+id=1";start-info="application/soap+xml"<br />
+Host: localhost:8080<br />
+Content-Length: 2126<br />
+Expect: 100-continue<br />
+Accept-Encoding: gzip, deflate<br />
+Connection: Keep-Alive<br />
+<br />
+</span><span class="tsmsg">23-05-2011 20:00:17.737; 500: Server to Client (391 bytes)<br />
+</span><span class="tsdata">HTTP/1.1 415 Cannot process the message because the content type 'multipart/related; type="application/xop+xml";start="&lt;http://tempuri.org/0&gt;";boundary="uuid:4c355dce-20ed-4766-84ed-019d685bb58b+id=1";start-info="application/soap+xml"' was not the expected type 'application/soap+xml; charset=utf-8'.<br />
+Content-Length: 0<br />
+Server: Microsoft-HTTPAPI/2.0<br />
+Date: Mon, 23 May 2011 19:00:17 GMT<br />
+<br />
+</span><span class="tsmsg">23-05-2011 20:00:17.753; 500: Client to Server (2126 bytes)<br />
+</span><span class="tsdata"><br />
+--uuid:4c355dce-20ed-4766-84ed-019d685bb58b+id=1<br />
+Content-ID: &lt;http://tempuri.org/0&gt;<br />
+Content-Transfer-Encoding: 8bit<br />
+Content-Type: application/xop+xml;charset=utf-8;type="application/soap+xml"<br />
+<br />
+&lt;s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing"&gt;&lt;s:Header&gt;&lt;a:Action s:mustUnderstand="1"&gt;http://tempuri.org/IServiceOla/getDataMTOM&lt;/a:Action&gt;&lt;a:MessageID&gt;urn:uuid:4406d3a6-de91-4e50-ab9c-f2a3ea5521d6&lt;/a:MessageID&gt;&lt;a:ReplyTo&gt;&lt;a:Address&gt;http://www.w3.org/2005/08/addressing/anonymous&lt;/a:Address&gt;&lt;/a:ReplyTo&gt;&lt;a:To s:mustUnderstand="1"&gt;http://localhost:8081/ServiceOla&lt;/a:To&gt;&lt;/s:Header&gt;&lt;s:Body&gt;&lt;getDataMTOM xmlns="http://tempuri.org/"&gt;&lt;arg&gt;&lt;xop:Include href="cid:http%3A%2F%2Ftempuri.org%2F1%2F634417776176752976" xmlns:xop="http://www.w3.org/2004/08/xop/include"/&gt;&lt;/arg&gt;&lt;/getDataMTOM&gt;&lt;/s:Body&gt;&lt;/s:Envelope&gt;<br />
+--uuid:4c355dce-20ed-4766-84ed-019d685bb58b+id=1<br />
+Content-ID: &lt;http://tempuri.org/1/634417776176752976&gt;<br />
+Content-Transfer-Encoding: binary<br />
+Content-Type: application/octet-stream<br />
+<br />
+UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU<br />
+--uuid:4c355dce-20ed-4766-84ed-019d685bb58b+id=1--<br />
+</span><span class="tsinform">23-05-2011 20:00:26.567; 500: Could not read data from Client<br />
+23-05-2011 20:00:26.567; 500: Connection reset by peer<br />
+</span><span class="tsmsg">23-05-2011 20:00:26.567; 500: Disconnected from Server<br />
+</span><span class="tserror">23-05-2011 20:03:01.147; Stopped by user<br />
+</span><span class="tsmsg">23-05-2011 20:03:01.147; Local Port closed<br />
+</span>
+<body>
+<html>
