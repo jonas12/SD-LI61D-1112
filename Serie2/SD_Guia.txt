@@ -1,0 +1,74 @@
+Deteção de relações de concorrência e "HAPPENS-BEFORE"
+
+    - Um sistema de replicação optimista suporta várias operações em simultâneo através do escalonamento das mesmas
+    e da deteção de conflitos entre elas;
+
+    - Para ser possivel o escalonamento o sistema tem de saber quais os eventos e a ordem pela qual ocorreram.
+    - Contudo num ambiente distribuido onde o atraso nas comunicações é imprevisivel não é possivel ordernar de forma 
+    absoluta as ocorrências dos eventos;
+
+    - Para resolver este problema foi proposto por Lamport o conceito de happens-before que consiste em 
+    capturar relações entre dois eventos e tenta definir entre eles qual acontece primeiro em relação ao 
+   	ou outro;
+
+   	- No caso de não ser detectada a relação de happens-before esta passa a ser uma relação de concorrência o que
+   	pode ocorrer em conflitos.
+
+
+
+Algoritmos de deteção e representação de relações HAPPENS-BEFORE
+
+    - Representação Explicita:
+    	- Nome das operações precedentes são anexadas à operação x;
+
+    - Relogios vectoriais:
+    	- Cada processo contem um vector de relógios onde para cada i é guardado
+    	o numero de eventos ocorridos no processo Pi; Quando é submetida uma nova operação y 
+    	no processo Pi este incrementa o seu valor de eventos ocorridos no vector e anexa o novo
+    	vector à operação y para actualizar os vectores dos outros processos;
+
+    - Relogios logicos e de tempo-real:
+    	- Lógicos: Cada processo tem um relógio interno e ao ser feita uma operação x esse relógio é incrementado
+    	e anexado à operação. O processo destinatário da operação incrementa o seu relógio para um valor 
+    	maior que o seu ou maior que o anexado na operação;
+
+    	- Tempo-Real: Comparação dos relógios físicos.
+
+    - Relogios plausiveis:
+    	- Combinação de alguns aspectos dos relógios lógicos com vectoriais;
+
+Consistência eventual
+	- Todas as replicas são sincronizadas quando o sistema se encontra inactivo por dado periodo de tempo;
+
+Scheduling
+	
+	- Sintático:
+		- Baseado em informação de caracter geral como quando, onde e por quem foram submitadas operações;
+
+	- Semântico:
+		- Baseado nas propriedades semânticas das operações tais como a comutatividade, idempotência, etc;
+
+Deteção de conflitos
+	
+	- Abordagem sintática:
+		- Duas operações estão em conflito quando são concorrentes não havendo relação happens-before.
+
+	- Abordagem semântica:
+		- Duas operações estão em conflito quando ambas têm a mesma semântica.
+
+Resolução de conflitos
+	
+	- Reescrever ou abortar operações que potenciem conflitos;
+	
+	- Manual:
+		- Exclui a operação conflituosa do schedule e apresenta duas versões do objecto. O
+		utilizador tem de criar um versão nova com merging das duas versões e voltar a submeter a operação;
+
+	- Automática:
+		- O sistema faz merge automática;
+
+
+Protocolos de compromisso
+	
+	- Após um conjuntos de operações ser submetida os intervinientes acordam entre si a politica de scheduling e técnica de resolução
+	de conflitos tornando as operações permanentes;
