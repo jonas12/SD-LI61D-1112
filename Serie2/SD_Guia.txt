@@ -8,11 +8,9 @@ Deteção de relações de concorrência e "HAPPENS-BEFORE"
     absoluta as ocorrências dos eventos;
 
     - Para resolver este problema foi proposto por Lamport o conceito de happens-before que consiste em 
-    capturar relações entre dois eventos e tenta definir entre eles qual acontece primeiro em relação ao 
-   	ou outro;
+    capturar relações de precedência entre eventos e tentar definir entre eles a ordem de ocorrência;
 
-   	- No caso de não ser detectada a relação de happens-before esta passa a ser uma relação de concorrência o que
-   	pode ocorrer em conflitos.
+   	- No caso de não ser detectada a relação de happens-before esta passa a ser uma relação de concorrência podendo ocorrer conflitos.
 
 
 
@@ -39,14 +37,18 @@ Algoritmos de deteção e representação de relações HAPPENS-BEFORE
 
 Consistência eventual
 	- Todas as replicas são sincronizadas quando o sistema se encontra inactivo por dado periodo de tempo;
+    - Para atingir a consistência eventual o sistema tem de adoptar uma politica de scheduling,
+    detectar conflitos e posteriormente resolvê-los.
 
 Scheduling
 	
 	- Sintático:
-		- Baseado em informação de caracter geral como quando, onde e por quem foram submitadas operações;
+		- Baseado em informação de caracter geral como quando, onde e por quem foram submetidas operações;
 
 	- Semântico:
-		- Baseado nas propriedades semânticas das operações tais como a comutatividade, idempotência, etc;
+		- Baseado nas propriedades relações semânticas entre as operações tais como a comutatividade, onde 
+        duas operações consecutivas se forem comutativas a sua ordem de execução pode ser trocada mesmo que haja
+        uma relação de "happens-before".
 
 Deteção de conflitos
 	
@@ -54,21 +56,26 @@ Deteção de conflitos
 		- Duas operações estão em conflito quando são concorrentes não havendo relação happens-before.
 
 	- Abordagem semântica:
-		- Duas operações estão em conflito quando ambas têm a mesma semântica.
+		- Duas operações estão em conflito quando ambas têm a mesma semântica. Por exemplo a escrita concorrente
+        de dois ficheiros distintos no mesmo sistema de ficheiros não é um conflito mas a alteração concorrente
+        do mesmo ficheiro é.
 
 Resolução de conflitos
 	
 	- Reescrever ou abortar operações que potenciem conflitos;
 	
 	- Manual:
-		- Exclui a operação conflituosa do schedule e apresenta duas versões do objecto. O
-		utilizador tem de criar um versão nova com merging das duas versões e voltar a submeter a operação;
+		- O sistema exclui a operação conflituosa do schedule e apresenta duas versões do objecto. 
+        - Cabe ao utilizador criar um versão nova com merging das duas versões e voltar a submeter a operação;
 
 	- Automática:
-		- O sistema faz merge automática;
+		- O sistema faz merge automático;
 
 
 Protocolos de compromisso
 	
-	- Após um conjuntos de operações ser submetida os intervinientes acordam entre si a politica de scheduling e técnica de resolução
-	de conflitos tornando as operações permanentes;
+    - Para implementar as 3 etapas da consistência eventual existem os protocolos de compromisso
+	onde a permanência das operações é acordada entre os intervenientes nomeadamente a politica de scheduling e a técnica de resolução de conflitos;
+
+    - Um dos protocolos é o de compromisso implicíto por conhecimento comum. Os sistemas que implementam este protocolo fazem uso de timestamps na ordernação das operações de forma
+    determinística e os conflitos ou não existem ou são ignorados.
