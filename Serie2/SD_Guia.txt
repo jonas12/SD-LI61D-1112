@@ -17,7 +17,7 @@ Deteção de relações de concorrência e "HAPPENS-BEFORE"
 Algoritmos de deteção e representação de relações HAPPENS-BEFORE
 
     - Representação Explicita:
-    	- Nome das operações precedentes são anexadas à operação x;
+    	- Nome das operações precedentes é anexado à operação x;
 
     - Relogios vectoriais:
     	- Cada processo contem um vector de relógios onde para cada i é guardado
