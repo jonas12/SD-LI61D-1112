@@ -11,7 +11,7 @@ using MessageServer.ServiceReference1;
 
 namespace MessageServer
 {
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, InstanceContextMode = InstanceContextMode.PerCall)]
     public class CentralService : ICentralService
     {
         private const string AppId = "F4E6E0444F32B660BED9908E9744594B53D2E864";
