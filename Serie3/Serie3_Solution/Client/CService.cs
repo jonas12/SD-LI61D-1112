@@ -8,12 +8,16 @@ using Contracts;
 namespace Client
 {
     [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
-    public class CService : ICService
+    public class CService : ServiceReference1.ICentralServiceCallback
     {
-        public int Method(string msg)
+        public void Method(string msg)
         {
             Console.WriteLine(msg);
-            return 1010;
+        }
+
+        public void Receive(string msg)
+        {
+            Console.WriteLine(msg);
         }
     }
 }

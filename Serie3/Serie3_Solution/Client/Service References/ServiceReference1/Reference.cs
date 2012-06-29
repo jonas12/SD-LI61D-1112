@@ -12,14 +12,30 @@ namespace Client.ServiceReference1 {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.ICentralService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.ICentralService", CallbackContract=typeof(Client.ServiceReference1.ICentralServiceCallback))]
     public interface ICentralService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICentralService/Register", ReplyAction="http://tempuri.org/ICentralService/RegisterResponse")]
-        int Register(string endpoint);
+        int Register(int theme, int language);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICentralService/UnRegister", ReplyAction="http://tempuri.org/ICentralService/UnRegisterResponse")]
         void UnRegister(int clientId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICentralService/GetSupportedLanguages", ReplyAction="http://tempuri.org/ICentralService/GetSupportedLanguagesResponse")]
+        string[] GetSupportedLanguages();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICentralService/GetSupportedThemes", ReplyAction="http://tempuri.org/ICentralService/GetSupportedThemesResponse")]
+        string[] GetSupportedThemes();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICentralService/SubmitMessage", ReplyAction="http://tempuri.org/ICentralService/SubmitMessageResponse")]
+        void SubmitMessage(string msg);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface ICentralServiceCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ICentralService/Receive")]
+        void Receive(string msg);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -28,33 +44,46 @@ namespace Client.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class CentralServiceClient : System.ServiceModel.ClientBase<Client.ServiceReference1.ICentralService>, Client.ServiceReference1.ICentralService {
+    public partial class CentralServiceClient : System.ServiceModel.DuplexClientBase<Client.ServiceReference1.ICentralService>, Client.ServiceReference1.ICentralService {
         
-        public CentralServiceClient() {
+        public CentralServiceClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
         }
         
-        public CentralServiceClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
+        public CentralServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
         }
         
-        public CentralServiceClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public CentralServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public CentralServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public CentralServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public CentralServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
+        public CentralServiceClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
         }
         
-        public int Register(string endpoint) {
-            return base.Channel.Register(endpoint);
+        public int Register(int theme, int language) {
+            return base.Channel.Register(theme, language);
         }
         
         public void UnRegister(int clientId) {
             base.Channel.UnRegister(clientId);
+        }
+        
+        public string[] GetSupportedLanguages() {
+            return base.Channel.GetSupportedLanguages();
+        }
+        
+        public string[] GetSupportedThemes() {
+            return base.Channel.GetSupportedThemes();
+        }
+        
+        public void SubmitMessage(string msg) {
+            base.Channel.SubmitMessage(msg);
         }
     }
 }

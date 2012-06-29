@@ -1,4 +1,5 @@
-﻿using System.Security.Policy;
+﻿using System.Collections.Generic;
+using System.Security.Policy;
 using System.ServiceModel;
 
 namespace Contracts
@@ -12,10 +13,11 @@ namespace Contracts
         /// <summary>
         /// Registers a client's ICService endpoint for communication.
         /// </summary>
-        /// <param name="endpoint">The url of the client's ICService.</param>
+        /// <param name="language"> The language a client is interested in for his messages</param>
+        /// <param name="theme"> The theme a client is interested in for his messages</param>
         /// <returns>client's server generated id</returns>
         [OperationContract]
-        int Register(string endpoint);
+        int Register(int theme, int language);
 
         /// <summary>
         /// Unregister's a client from server's ICentralService.
@@ -23,5 +25,14 @@ namespace Contracts
         /// <param name="clientId">The client's id.</param>
         [OperationContract]
         void UnRegister(int clientId);
+
+        [OperationContract]
+        string[] GetSupportedLanguages();
+
+        [OperationContract]
+        string[] GetSupportedThemes();
+
+        [OperationContract]
+        void SubmitMessage(string msg);
     }
 }

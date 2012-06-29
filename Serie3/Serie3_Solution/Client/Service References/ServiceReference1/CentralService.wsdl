@@ -17,6 +17,7 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8080/CentralService/?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8080/CentralService/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8080/CentralService/?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ICentralService_Register_InputMessage">
@@ -31,6 +32,27 @@
   <wsdl:message name="ICentralService_UnRegister_OutputMessage">
     <wsdl:part name="parameters" element="tns:UnRegisterResponse" />
   </wsdl:message>
+  <wsdl:message name="ICentralService_GetSupportedLanguages_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupportedLanguages" />
+  </wsdl:message>
+  <wsdl:message name="ICentralService_GetSupportedLanguages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupportedLanguagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICentralService_GetSupportedThemes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupportedThemes" />
+  </wsdl:message>
+  <wsdl:message name="ICentralService_GetSupportedThemes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupportedThemesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICentralService_SubmitMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICentralService_SubmitMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICentralService_Receive_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:Receive" />
+  </wsdl:message>
   <wsdl:portType name="ICentralService">
     <wsdl:operation name="Register">
       <wsdl:input wsaw:Action="http://tempuri.org/ICentralService/Register" message="tns:ICentralService_Register_InputMessage" />
@@ -39,6 +61,21 @@
     <wsdl:operation name="UnRegister">
       <wsdl:input wsaw:Action="http://tempuri.org/ICentralService/UnRegister" message="tns:ICentralService_UnRegister_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICentralService/UnRegisterResponse" message="tns:ICentralService_UnRegister_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSupportedLanguages">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICentralService/GetSupportedLanguages" message="tns:ICentralService_GetSupportedLanguages_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICentralService/GetSupportedLanguagesResponse" message="tns:ICentralService_GetSupportedLanguages_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSupportedThemes">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICentralService/GetSupportedThemes" message="tns:ICentralService_GetSupportedThemes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICentralService/GetSupportedThemesResponse" message="tns:ICentralService_GetSupportedThemes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICentralService/SubmitMessage" message="tns:ICentralService_SubmitMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICentralService/SubmitMessageResponse" message="tns:ICentralService_SubmitMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Receive">
+      <wsdl:output wsaw:Action="http://tempuri.org/ICentralService/Receive" message="tns:ICentralService_Receive_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSDualHttpBinding_ICentralService" type="tns:ICentralService">
@@ -58,6 +95,39 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSupportedLanguages">
+      <soap12:operation soapAction="http://tempuri.org/ICentralService/GetSupportedLanguages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSupportedThemes">
+      <soap12:operation soapAction="http://tempuri.org/ICentralService/GetSupportedThemes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitMessage">
+      <soap12:operation soapAction="http://tempuri.org/ICentralService/SubmitMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Receive">
+      <soap12:operation soapAction="http://tempuri.org/ICentralService/Receive" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

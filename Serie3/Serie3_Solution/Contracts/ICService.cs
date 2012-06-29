@@ -4,7 +4,7 @@ namespace Contracts
 {
     public interface ICService
     {
-        [OperationContract]
-        int Method(string msg);
+        [OperationContract(IsOneWay = true)]
+        void Receive(string msg);
     }
 }
